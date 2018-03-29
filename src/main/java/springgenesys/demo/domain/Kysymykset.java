@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Kysymykset {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String kysymys;
 	public long getId() {
