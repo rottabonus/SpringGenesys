@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>API DOKUMENTAATIO</title>
+<meta charset="utf8"/>
+<link <link rel="stylesheet" type="text/css" href="mystyle.css"/>
+</head>
+<body>
+<div>
+ <div>
+   <h2>Api dokumentaatio:</h2>
+   <p> Api tuottaa json dataa. 
+   <a href="https://www.w3schools.com/js/js_json_intro.asp">Mitä on JSON?</a>
+</p>
+   <p><b>APIN Endpointit:</b></p>
+   <p><a href="proto301.haaga-helia.fi:8080/demo/">proto.301.haaga-helia.fi:8080/demo/ </a> - tuottaa datan [] 
+<br>
+</p>  
+</div>
+
+ <div>
+
+ <p>Luonti päivämäärä:29-3-2018 
+ <br>
+ <p>Päivitetty:29-3-2018 
+<br>
+ Kysymykset:risto.vesanto@myy.haaga-helia.fi      
+ </p>
+ </div>
+</div>
+
+</body>
+</html>
