@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Team {
 
@@ -20,7 +22,8 @@ public class Team {
 	
 	private String team_name;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
+	@JsonIgnore
 	private List<Question>  question_list;
 
 	public Long getTeam_id() {

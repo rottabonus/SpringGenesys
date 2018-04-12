@@ -2,6 +2,7 @@ package fi.haagahelia.swd.ohjelmistoprojekti.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,14 +22,14 @@ private Long question_id;
 private String question;
 private String question_type;
 
-@OneToMany
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 @JsonIgnore
-@JoinColumn(name="answer_id", nullable=false)
 private List<Answer> answer_list;
 
 @ManyToOne
-@JoinColumn(name="team_id", nullable=false)
-private Team team_id;
+@JsonIgnore
+@JoinColumn(name="team_id")
+private Team team;
 
 public Long getQuestion_id() {
 	return question_id;
@@ -47,11 +48,11 @@ public void setQuestion(String question) {
 }
 
 public Team getTeam_id() {
-	return team_id;
+	return team;
 }
 
-public void setTeam_id(Team team_id) {
-	this.team_id = team_id;
+public void setTeam_id(Team team) {
+	this.team = team;
 }
 
 public String getQuestion_type() {
@@ -70,16 +71,21 @@ public void setAnswer_list(List<Answer> answer_list) {
 	this.answer_list = answer_list;
 }
 
-public Question() {
-	super();
-}
 
-public Question(String question, String question_type, List<Answer> answer_list, Team team_id) {
+public Question(String question, String question_type, List<Answer> answer_list, Team team) {
 	super();
 	this.question = question;
 	this.question_type = question_type;
 	this.answer_list = answer_list;
-	this.team_id = team_id;
+	this.team = team;
+}
+
+public Question() {
+	super();
+	this.question = null;
+	this.question_type = null;
+	this.answer_list = null;
+	this.team = null;
 }
 
 

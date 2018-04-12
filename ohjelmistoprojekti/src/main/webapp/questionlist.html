@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Questions</title>
+</head>
+<body>
+
+	<table>
+		<tr>
+			<th>Question</th>
+			<th>Type</th>
+		</tr>
+		
+		<tr th:each="question : ${questions}">
+			<td th:text="${question.author}"></td>
+			<td th:text="${question.title}"></td>
+		</tr>
+	</table>
+
+</body>
+</html>
