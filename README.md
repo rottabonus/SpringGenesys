@@ -1,0 +1,3 @@
+# SpringGenesys
+
+Ohjelmistoprojekti I
