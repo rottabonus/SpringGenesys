@@ -26,4 +26,8 @@ VALUES
 ('Käyttäisitkö juoma-automaatteja jos niistä saisi muutakin kuin limsaa ja energiajuomia?', 'monivalinta', 2),
 ('Miksi käytät kahviota?', 'monivalinta', 2),
 ('Toivoisitko laajempaa valikoimaa kahvioon?', 'monivalinta', 2),
+<<<<<<< HEAD
 ('Onko kahviossa asioiminen nopeaa?', 'monivalinta', 2);
+=======
+('Onko kahviossa asioiminen nopeaa?', 'monivalinta', 2);
+>>>>>>> 674d7f38f75231aa11ee5ea7b3a0f4769e7e7b20
