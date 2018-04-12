@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,6 +26,10 @@ private String question_type;
 @JoinColumn(name="answer_id", nullable=false)
 private List<Answer> answer_list;
 
+@ManyToOne
+@JoinColumn(name="team_id", nullable=false)
+private Team team_id;
+
 public Long getQuestion_id() {
 	return question_id;
 }
@@ -39,6 +44,14 @@ public String getQuestion() {
 
 public void setQuestion(String question) {
 	this.question = question;
+}
+
+public Team getTeam_id() {
+	return team_id;
+}
+
+public void setTeam_id(Team team_id) {
+	this.team_id = team_id;
 }
 
 public String getQuestion_type() {
@@ -61,19 +74,15 @@ public Question() {
 	super();
 }
 
-public Question(Long question_id, String question, String question_type, List<Answer> answer_list) {
-	super();
-	this.question_id = question_id;
-	this.question = question;
-	this.question_type = question_type;
-	this.answer_list = answer_list;
-}
-public Question(String question, String question_type, List<Answer> answer_list) {
+public Question(String question, String question_type, List<Answer> answer_list, Team team_id) {
 	super();
 	this.question = question;
 	this.question_type = question_type;
 	this.answer_list = answer_list;
+	this.team_id = team_id;
 }
+
+
 
 
 	}
