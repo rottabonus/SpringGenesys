@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Question {
+	
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 private Long question_id;
