@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.Answer;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Team;
@@ -24,6 +27,8 @@ public class QController {
 	@Autowired
 	private TeamRepository trepository;
 	
+	@Autowired
+	private AnswerRepository arepository;
 	
 	// REST get all questions
 	@RequestMapping(value="/questions", method=RequestMethod.GET)
@@ -68,5 +73,49 @@ public class QController {
 		return "questionlist";
 	}
 
+	// POST answer by questionId
+	@RequestMapping(value="/answer/{id}", method=RequestMethod.POST)
+	public @ResponseBody Answer createAnswer(@PathVariable("id") Question questionId, @RequestBody Answer answer){
+		answer.setQuestion(questionId);
+		 arepository.save(answer);
+		return answer;
+	}
 	
+	//GET all answers
+	@RequestMapping(value="/answers", method=RequestMethod.GET)
+	public @ResponseBody List<Answer> answerListRest() {	
+        return (List<Answer>) arepository.findAll();
+	}
+	
+	//POST answers by Team
+	@RequestMapping(value="/answers/team/{id}", method=RequestMethod.POST)
+	public @ResponseBody List<Answer> createAnswerListByTeam(@PathVariable("id") Team team, @RequestBody List<Answer> answerList, Long questionId){
+		
+		//questionList by Team
+		List<Question> questionList = findTeamQuestionRest(team);
+		
+		//The first question_id of questionList and answer_id of answerList (answer_id will return Null)
+		questionId = questionList.get(0).getQuestion_id();
+		
+		
+		System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
+				" and questionLists first question is: " + questionList.get(0).getQuestion() + " and answerLists first answer_id is: "
+				+" questionlist unformatted: " + questionList);
+		
+		//Loop through questions and assign answers 
+		for(Long i = questionId; i < questionList.size() + questionId; i++) {
+			
+			
+			System.out.println("Print question_id: " +i);
+			
+		//answerList.get(answerId).setQuestion(question);
+			
+		}
+		//Saves answerList answers to database
+		arepository.save(answerList);
+		
+		System.out.println("answerList.size() is : " + answerList.size() + " and answerLists first answer is : " + answerList.get(0).getAnswer());
+		
+		return (List<Answer>) arepository.findAll();
+	}
 }
