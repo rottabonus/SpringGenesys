@@ -89,33 +89,33 @@ public class QController {
 	
 	//POST answers by Team
 	@RequestMapping(value="/answers/team/{id}", method=RequestMethod.POST)
-	public @ResponseBody List<Answer> createAnswerListByTeam(@PathVariable("id") Team team, @RequestBody List<Answer> answerList, Long questionId){
-		
+	public @ResponseBody List<Answer> createAnswerListByTeam(@PathVariable("id") Team team, @RequestBody List<Answer> answerList, Long questionId, Answer answer){
+
 		//questionList by Team
 		List<Question> questionList = findTeamQuestionRest(team);
-		
-		//The first question_id of questionList and answer_id of answerList (answer_id will return Null)
+		//The first question_id of questionList
 		questionId = questionList.get(0).getQuestion_id();
 		
-		
-		System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
-				" and questionLists first question is: " + questionList.get(0).getQuestion() + " and answerLists first answer_id is: "
-				+" questionlist unformatted: " + questionList);
-		
+			System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
+					" and questionLists first question is: " + questionList.get(0).getQuestion() + " and answerLists first answer_id is: "
+							+ answer.getAnswer_id() +" questionlist: " + questionList);
+		int c = 0;
 		//Loop through questions and assign answers 
-		for(Long i = questionId; i < questionList.size() + questionId; i++) {
+		for(Long i = questionId; i < answerList.size() + questionId; i++) {
 			
+			answer = answerList.get(c);
+				answer.setQuestion(qrepository.findOne(i));
+					c++;
 			
-			System.out.println("Print question_id: " +i);
-			
-		//answerList.get(answerId).setQuestion(question);
-			
-		}
+						System.out.println("Print round: " + i + " and question: " + qrepository.findOne(i).getQuestion() + "Answer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
+					}
+		
+		
 		//Saves answerList answers to database
 		arepository.save(answerList);
 		
-		System.out.println("answerList.size() is : " + answerList.size() + " and answerLists first answer is : " + answerList.get(0).getAnswer());
+					System.out.println("answerList.size() is : " + answerList.size() + " and answerLists first answer is : " + answerList.get(0).getAnswer());
 		
-		return (List<Answer>) arepository.findAll();
-	}
-}
+							return (List<Answer>) arepository.findAll();
+					}
+				}
