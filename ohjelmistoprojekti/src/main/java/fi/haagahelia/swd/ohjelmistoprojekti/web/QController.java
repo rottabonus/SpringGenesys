@@ -74,7 +74,7 @@ public class QController {
 	}
 
 	// POST answer by questionId
-	@RequestMapping(value="/answer/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/answers/{id}", method=RequestMethod.POST)
 	public @ResponseBody Answer createAnswer(@PathVariable("id") Question questionId, @RequestBody Answer answer){
 		answer.setQuestion(questionId);
 		 arepository.save(answer);
@@ -89,33 +89,27 @@ public class QController {
 	
 	//POST answers by Team
 	@RequestMapping(value="/answers/team/{id}", method=RequestMethod.POST)
-	public @ResponseBody List<Answer> createAnswerListByTeam(@PathVariable("id") Team team, @RequestBody List<Answer> answerList, Long questionId, Answer answer){
+	public @ResponseBody List<Answer> createAnswerListByTeam(@PathVariable("id") Team team, @RequestBody List<Answer> answerList){
 
-		//questionList by Team
 		List<Question> questionList = findTeamQuestionRest(team);
-		//The first question_id of questionList
-		questionId = questionList.get(0).getQuestion_id();
+		Long questionId = questionList.get(0).getQuestion_id();
 		
 			System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
-					" and questionLists first question is: " + questionList.get(0).getQuestion() + " and answerLists first answer_id is: "
-							+ answer.getAnswer_id() +" questionlist: " + questionList);
+					" and questionLists first question is: " + questionList.get(0).getQuestion());
+			
+		//Loop through answers and assign questions 
 		int c = 0;
-		//Loop through questions and assign answers 
-		for(Long i = questionId; i < answerList.size() + questionId; i++) {
-			
-			answer = answerList.get(c);
-				answer.setQuestion(qrepository.findOne(i));
-					c++;
-			
-						System.out.println("Print round: " + i + " and question: " + qrepository.findOne(i).getQuestion() + "Answer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
-					}
-		
-		
+			for(Long i = questionId; i < answerList.size() + questionId; i++) {
+				Answer answer = answerList.get(c);
+					answer.setQuestion(qrepository.findOne(i));
+						c++;
+							System.out.println("Print round: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
+									"\nAnswer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
+						}
 		//Saves answerList answers to database
 		arepository.save(answerList);
-		
-					System.out.println("answerList.size() is : " + answerList.size() + " and answerLists first answer is : " + answerList.get(0).getAnswer());
-		
-							return (List<Answer>) arepository.findAll();
-					}
+			System.out.println("answerList.size() is : " + answerList.size() +
+					" and answerLists first answer is : " + answerList.get(0).getAnswer());
+							return (List<Answer>) answerList;
 				}
+			}
