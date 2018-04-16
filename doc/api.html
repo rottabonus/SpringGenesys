@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Ohjelmistoprojekti API Dokumentaatio</title>
+    <meta charset="utf8">
+  </head>
+  <body>
+    <h1 id="ohjelmistoprojektiapidokumentaatio">Ohjelmistoprojekti API Dokumentaatio</h1>
+
+    <h2 id="kaikkikysymykset">Kaikki Kysymykset</h2>
+
+    <p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/">http://167.99.253.212:8080/ohjelmistoprojekti/questions/</a></p>
+
+    <p>Method: GET</p>
+
+    <p>API Response:</p>
+
+    <pre><code>[
+	{
+	"question_id": 1,
+	"question": "Sukupuoli?",
+	"question_type": "avoin",
+	"team_id": {
+	"team_id": 1,
+	"team_name": "Les Pasila"
+	}
+	},
+	{
+	"question_id": 2,
+	"question": "Ikä?",
+	"question_type": "monivalinta",
+	"team_id": {
+	"team_id": 1,
+	"team_name": "Les Pasila"
+	}
+	},
+	.
+	.
+	.
+    </code></pre>
+
+    <h2 id="yksikysymys">Yksi Kysymys</h2>
+
+    <p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/1">http://167.99.253.212:8080/ohjelmistoprojekti/questions/1</a></p>
+
+    <p>Method: GET</p>
+
+    <p>URL:n viimeinen numero vastaa <code>question_id</code>:tä.</p>
+
+    <p>API Response:</p>
+
+    <pre><code>{
+	"question_id": 1,
+	"question": "Sukupuoli?",
+	"question_type": "avoin",
+	"team_id": {
+	"team_id": 1,
+	"team_name": "Les Pasila"
+	}
+	}
+    </code></pre>
+
+    <h2 id="tiimikohtaisetkysymykset">Tiimikohtaiset Kysymykset</h2>
+
+    <p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1">http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1</a></p>
+
+    <p>Method: GET</p>
+
+    <p>URL:n viimeinen numero vastaa <code>team_id</code>:tä.
+      <code>team_id: 1</code> on Les Pasila ja <code>team_id: 2</code> on Kari Grandit.</p>
+
+    <p>API Respone:</p>
+
+    <pre><code>[
+	{
+	"question_id": 1,
+	"question": "Sukupuoli?",
+	"question_type": "avoin",
+	"team_id": {
+	"team_id": 1,
+	"team_name": "Les Pasila"
+	}
+	},
+	{
+	"question_id": 2,
+	"question": "Ikä?",
+	"question_type": "monivalinta",
+	"team_id": {
+	"team_id": 1,
+	"team_name": "Les Pasila"
+	}
+	},
+	.
+	.
+	.
+    </code></pre>
+  </body>
+</html>
