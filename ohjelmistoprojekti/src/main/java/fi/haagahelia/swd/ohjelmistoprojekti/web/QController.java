@@ -43,7 +43,7 @@ public class QController {
 	}
 	
 	
-	//REST POST answer
+	//REST POST answer by questionId
 	@RequestMapping(value="/answer/{id}", method = RequestMethod.POST)
 	public @ResponseBody Answer createAnswer(@RequestBody Answer answer, @PathVariable("id") Question questionId) {
 		
@@ -53,10 +53,36 @@ public class QController {
 		return answer;
 	}
 	
+	// REST POST by Team
+	@RequestMapping(value="/answer/team/{id}", method = RequestMethod.POST)
+	public @ResponseBody List<Answer> createAnswerList(@PathVariable("id") Team team){
+	
+		// Get List of questions of team
+		List<Question> questionList = findTeamQuestionRest(team);
+
+		// Logging
+		System.out.println("tässä on answerlist.indexof(0): " +questionList.indexOf(12) + ", ja tässä on questionList: " + questionList
+		+ " ja tässä on listan koko: " + questionList.size() + " testataan lisää: " + questionList.stream().findFirst().get());
+		
+		
+				// go through list of questions
+				for (int i = questionList.indexOf(questionList); i < questionList.size(); i++){ 
+					
+					//magic here
+					System.out.println("lul");
+					
+				}
+				
+				//change this
+		return (List<Answer>) arepository.findAll();
+
+	}
+	
 	//REST get all answers
 	@RequestMapping(value="/answers", method=RequestMethod.GET)
 	public @ResponseBody List<Answer> answerListRest() {	
         return (List<Answer>) arepository.findAll();
 	}
+	
 	
 }
