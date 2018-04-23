@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Team;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.TeamRepository;
 
-
+@CrossOrigin
 @Controller
 public class QController {
 	@Autowired
@@ -43,6 +44,7 @@ public class QController {
 	}
 
 	//REST questions by team
+	@CrossOrigin
 	@RequestMapping(value="/questions/team/{id}", method=RequestMethod.GET)
 	public @ResponseBody List<Question> findTeamQuestionRest(@PathVariable("id") Team team){
 		return (List<Question>) team.getQuestion_list();
@@ -103,7 +105,7 @@ public class QController {
 				Answer answer = answerList.get(c);
 					answer.setQuestion(qrepository.findOne(i));
 						c++;
-							System.out.println("Print round: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
+							System.out.println("Question id: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
 									"\nAnswer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
 						}
 		//Saves answerList answers to database
