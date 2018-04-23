@@ -198,3 +198,31 @@ Body: [
 { "id": 11, "answer": "COla"}
 ]
 ```
+
+
+## Vastaukset
+
+[http://167.99.253.212:8080/ohjelmistoprojekti/answers/](http://167.99.253.212:8080/ohjelmistoprojekti/answers/)
+
+Method: GET 
+
+API response:
+
+API Response:
+
+```
+[
+  {
+    "answer_id": 1,
+    "answer": "2 vuotta",
+    }
+  },
+  {
+    "answer_id": 2,
+    "answer": "En"
+    }
+  },
+.
+.
+.
+```
