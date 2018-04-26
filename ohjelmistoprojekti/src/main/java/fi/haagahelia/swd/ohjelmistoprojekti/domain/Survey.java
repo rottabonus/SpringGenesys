@@ -12,32 +12,32 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Team {
+public class Survey {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long team_id;
+	private Long survey_id;
 	
-	private String team_name;
+	private String survey_name;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
 	@JsonIgnore
 	public List<Question>  question_list;
 
-	public Long getTeam_id() {
-		return team_id;
+	public Long getSurvey_id() {
+		return survey_id;
 	}
 
-	public void setTeam_id(Long team_id) {
-		this.team_id = team_id;
+	public void setSurvey_id(Long survey_id) {
+		this.survey_id = survey_id;
 	}
 
-	public String getTeam_name() {
-		return team_name;
+	public String getSurvey_name() {
+		return survey_name;
 	}
 
-	public void setTeam_name(String team_name) {
-		this.team_name = team_name;
+	public void setSurvey_name(String survey_name) {
+		this.survey_name = survey_name;
 	}
 
 	public List<Question> getQuestion_list() {
@@ -48,13 +48,13 @@ public class Team {
 		this.question_list = question_list;
 	}
 
-	public Team(String team_name, List<Question> question_list) {
+	public Survey(String survey_name, List<Question> question_list) {
 		super();
-		this.team_name = team_name;
+		this.survey_name = survey_name;
 		this.question_list = question_list;
 	}
 
-	public Team() {}
+	public Survey() {}
 	
 	
 }

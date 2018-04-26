@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kysely</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<h1>surveys:</h1>
+
+	
+	<table>
+		<tr>
+			<th>Name</th>
+		</tr>
+		
+		<tr th:each="survey : ${surveys}">
+			<td th:text="${survey.survey_name}"></td>
+			<td><a th:href="@{/questionlist/survey/{id}(id=${team.team_id})}">Edit</a></td>
+
+		<tr th:each="question : ${questions}">
+			<td th:text="${question.question}"></td>
+		</tr>
+	</table>
+	
+	<a href="addsurvey">Lisää uusi kysely</a>
+
+</body>
+</html>

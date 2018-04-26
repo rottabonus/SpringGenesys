@@ -28,8 +28,28 @@ private List<Answer> answer_list;
 
 @ManyToOne
 @JsonIgnore
-@JoinColumn(name="team_id")
-public Team team;
+@JoinColumn(name="survey_id")
+private Survey survey;
+
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+@JsonIgnore
+private List<Option> option_list;
+
+public Survey getSurvey() {
+	return survey;
+}
+
+public void setSurvey(Survey survey) {
+	this.survey = survey;
+}
+
+public List<Option> getOption_list() {
+	return option_list;
+}
+
+public void setOption_list(List<Option> option_list) {
+	this.option_list = option_list;
+}
 
 public Long getQuestion_id() {
 	return question_id;
@@ -47,13 +67,6 @@ public void setQuestion(String question) {
 	this.question = question;
 }
 
-public Team getTeam_id() {
-	return team;
-}
-
-public void setTeam_id(Team team) {
-	this.team = team;
-}
 
 public String getQuestion_type() {
 	return question_type;
@@ -72,12 +85,16 @@ public void setAnswer_list(List<Answer> answer_list) {
 }
 
 
-public Question(String question, String question_type, List<Answer> answer_list, Team team) {
+
+
+public Question(String question, String question_type, List<Answer> answer_list, Survey survey,
+		List<Option> option_list) {
 	super();
 	this.question = question;
 	this.question_type = question_type;
 	this.answer_list = answer_list;
-	this.team = team;
+	this.survey = survey;
+	this.option_list = option_list;
 }
 
 public Question() {
@@ -85,7 +102,8 @@ public Question() {
 	this.question = null;
 	this.question_type = null;
 	this.answer_list = null;
-	this.team = null;
+	this.survey = null;
+	this.option_list = null;
 }
 
 
