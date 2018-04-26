@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kysely</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<h1>Teams:</h1>
+
+	
+	<table>
+		<tr>
+			<th>Name</th>
+		</tr>
+		
+		<tr th:each="team : ${teams}">
+			<td th:text="${team.team_name}"></td>
+		</tr>
+	</table>
+	
+	<a href="add">Lisää uusi kysely</a>
+
+</body>
+</html>

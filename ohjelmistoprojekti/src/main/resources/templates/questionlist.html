@@ -8,13 +8,12 @@
 
 	<table>
 		<tr>
-			<th>Question</th>
-			<th>Type</th>
+			<th>Kysely</th>
+			<th>Kysymkset</th>
 		</tr>
 		
-		<tr th:each="question : ${questions}">
-			<td th:text="${question.author}"></td>
-			<td th:text="${question.title}"></td>
+		<tr th:each="team : ${teams}">
+			<td th:text="${team.team_name}"></td>
 		</tr>
 	</table>
 

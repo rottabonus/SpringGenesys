@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kysely</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Uusi kysely</h1>
+	
+	<div>
+		<form th:object="${team}" th:action="@{save}" action="#" method="post">
+			<label for="name">Kyselyn nimi</label>
+			<input type="text" id="name" th:field="*{team_name}" />
+
+			<input type="submit" value="Save" class="btn btn-success"></input>
+						
+		</form>
+	</div>
+
+</body>
+</html>
