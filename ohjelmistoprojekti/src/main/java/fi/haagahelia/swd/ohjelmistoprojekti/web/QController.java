@@ -56,7 +56,7 @@ public class QController {
 		return "teamlist";
 	}
 	
-	@RequestMapping(value="/add")
+	@RequestMapping(value="/addteam")
 	public String addTeam(Model model){
 		model.addAttribute("team", new Team());
 		return "newteam";
@@ -68,7 +68,7 @@ public class QController {
 		return "redirect:/teamlist";
 	}
 	
-	@RequestMapping(value="/edit/{id}")
+	@RequestMapping(value="/editteam/{id}")
 	public String editTeam(@PathVariable("id") Long teamId, Model model){
 		model.addAttribute("team", trepository.findOne(teamId));
 		return "editteam";

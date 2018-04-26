@@ -22,7 +22,7 @@ public class Team {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
 	@JsonIgnore
-	private List<Question>  question_list;
+	public List<Question>  question_list;
 
 	public Long getTeam_id() {
 		return team_id;
