@@ -28,7 +28,7 @@ private List<Answer> answer_list;
 
 @ManyToOne
 @JsonIgnore
-@JoinColumn(name="team_id")
+@JoinColumn(name="survey_id")
 private Survey survey;
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")

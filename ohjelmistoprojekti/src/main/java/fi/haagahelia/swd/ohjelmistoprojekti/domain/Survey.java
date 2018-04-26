@@ -22,7 +22,7 @@ public class Survey {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
 	@JsonIgnore
-	private List<Question>  question_list;
+	public List<Question>  question_list;
 
 	public Long getSurvey_id() {
 		return survey_id;
