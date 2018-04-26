@@ -86,4 +86,20 @@ public class RestController {
 						" and answerLists first answer is : " + answerList.get(0).getAnswer());
 								return (List<Answer>) answerList;
 					}
-}
+		/*//REST questions by survey
+				@CrossOrigin
+				@RequestMapping(value="/questions/survey/{id}", method=RequestMethod.GET)
+				public @ResponseBody List<Question> findSurveyQuestionRest(@PathVariable("id") Survey survey){
+					return (List<Question>) survey.getQuestion_list();
+				}*/
+		
+		//GET answers by Survey THIS IS NOT FINISHED!!!!!
+		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
+		public @ResponseBody List<Answer> getAnswerListBySurvey(@PathVariable("id")Survey survey){
+			return (List<Answer>) arepository.findAll();
+				}
+		}
+
+
+
+
