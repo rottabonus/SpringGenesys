@@ -16,17 +16,18 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.Answer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.Team;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.TeamRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.SurveyRepository;
 
 @CrossOrigin
 @Controller
 public class QController {
+	
 	@Autowired
 	private QuestionRepository qrepository;
 	
 	@Autowired
-	private TeamRepository trepository;
+	private SurveyRepository srepository;
 	
 
 	@Autowired
@@ -44,37 +45,36 @@ public class QController {
 		return qrepository.findOne(questionId);
 	}
 
-	//REST questions by team
+	//REST questions by survey
 	@CrossOrigin
-	@RequestMapping(value="/questions/team/{id}", method=RequestMethod.GET)
-	public @ResponseBody List<Question> findTeamQuestionRest(@PathVariable("id") Team team){
-		return (List<Question>) team.getQuestion_list();
+	@RequestMapping(value="/questions/survey/{id}", method=RequestMethod.GET)
+	public @ResponseBody List<Question> findSurveyQuestionRest(@PathVariable("id") Survey survey){
+		return (List<Question>) survey.getQuestion_list();
 	}
 	
 
-
-	@RequestMapping(value="/teamlist", method=RequestMethod.GET)
-	public String teamList(Model model){
-		model.addAttribute("teams", trepository.findAll());
-		return "teamlist";
+	@RequestMapping(value="/surveylist", method=RequestMethod.GET)
+	public String surveyList(Model model){
+		model.addAttribute("surveys", srepository.findAll());
+		return "surveylist";
 	}
 	
 	@RequestMapping(value="/add")
-	public String addTeam(Model model){
-		model.addAttribute("team", new Team());
-		return "newteam";
+	public String addSurvey(Model model){
+		model.addAttribute("survey", new Survey());
+		return "newsurvey";
 
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(Team team){
-		trepository.save(team);
-		return "redirect:/teamlist";
+	public String save(Survey survey){
+		srepository.save(survey);
+		return "redirect:/surveylist";
 	}
 	
-	@RequestMapping(value="/questionlist/team/{id}", method=RequestMethod.GET)
-	public String questionlist(@PathVariable("id") Long teamId, Model model){
-		model.addAttribute("teams", trepository.findOne(teamId));
+	@RequestMapping(value="/questionlist/survey/{id}", method=RequestMethod.GET)
+	public String questionlist(@PathVariable("id") Long surveyId, Model model){
+		model.addAttribute("surveys", srepository.findOne(surveyId));
 		model.addAttribute("questions", qrepository.findAll());
 		return "questionlist";
 	}
@@ -93,11 +93,11 @@ public class QController {
         return (List<Answer>) arepository.findAll();
 	}
 	
-	//POST answers by Team
-	@RequestMapping(value="/answers/team/{id}", method=RequestMethod.POST)
-	public @ResponseBody List<Answer> createAnswerListByTeam(@PathVariable("id") Team team, @RequestBody List<Answer> answerList){
+	//POST answers by Survey
+	@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.POST)
+	public @ResponseBody List<Answer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody List<Answer> answerList){
 
-		List<Question> questionList = findTeamQuestionRest(team);
+		List<Question> questionList = findSurveyQuestionRest(survey);
 		Long questionId = questionList.get(0).getQuestion_id();
 		
 			System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 

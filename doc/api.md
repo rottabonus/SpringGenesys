@@ -127,17 +127,17 @@ Headers: Key: "Content-Type", Value: "application-json"
 
 ```
 Body: [
-{ "id": 0, "answer": "2 vuotta"}, 
-{ "id": 0, "answer": "En"},
-{ "id": 0, "answer": "COla"},
-{ "id": 0, "answer": "Ei"}, 
-{ "id": 0, "answer": "Kyllä"},
-{ "id": 0, "answer": "Kahvin takia"},
-{ "id": 0, "answer": "Kyllä"},
-{ "id": 0, "answer": "Kahvin takia"},
-{ "id": 0, "answer": "2 vuotta"}, 
-{ "id": 0, "answer": "En"},
-{ "id": 0, "answer": "COla"}
+  {"id": 0, "answer": "2 vuotta"}, 
+  { "id": 0, "answer": "En"},
+  { "id": 0, "answer": "COla"},
+  { "id": 0, "answer": "Ei"}, 
+  { "id": 0, "answer": "Kyllä"},
+  { "id": 0, "answer": "Kahvin takia"},
+  { "id": 0, "answer": "Kyllä"},
+  { "id": 0, "answer": "Kahvin takia"},
+  { "id": 0, "answer": "2 vuotta"}, 
+  { "id": 0, "answer": "En"},
+  { "id": 0, "answer": "COla"}
 ]
 ```
 
@@ -147,17 +147,17 @@ API response:
 
 ```
 Body: [
-{ "id": 1, "answer": "2 vuotta"}, 
-{ "id": 2, "answer": "En"},
-{ "id": 3, "answer": "COla"},
-{ "id": 4, "answer": "Ei"}, 
-{ "id": 5, "answer": "Kyllä"},
-{ "id": 6, "answer": "Kahvin takia"},
-{ "id": 7, "answer": "Kyllä"},
-{ "id": 8, "answer": "Kahvin takia"},
-{ "id": 9, "answer": "2 vuotta"}, 
-{ "id": 10, "answer": "En"},
-{ "id": 11, "answer": "COla"}
+  { "id": 1, "answer": "2 vuotta"}, 
+  { "id": 2, "answer": "En"},
+  { "id": 3, "answer": "COla"},
+  { "id": 4, "answer": "Ei"}, 
+  { "id": 5, "answer": "Kyllä"},
+  { "id": 6, "answer": "Kahvin takia"},
+  { "id": 7, "answer": "Kyllä"},
+  { "id": 8, "answer": "Kahvin takia"},
+  { "id": 9, "answer": "2 vuotta"}, 
+  { "id": 10, "answer": "En"},
+  { "id": 11, "answer": "COla"}
 ]
 ```
 
@@ -167,17 +167,17 @@ Vastauksen attribuutin "id" arvo ei vaikuta mihinkään. Sen voi siis jättää 
 
 ```
 Body: [
-{ "answer": "2 vuotta"}, 
-{ "answer": "En"},
-{ "answer": "COla"},
-{ "answer": "Ei"}, 
-{ "answer": "Kyllä"},
-{ "answer": "Kahvin takia"},
-{ "answer": "Kyllä"},
-{ "answer": "Kahvin takia"},
-{ "answer": "2 vuotta"}, 
-{ "answer": "En"},
-{ "answer": "COla"}
+  { "answer": "2 vuotta"}, 
+  { "answer": "En"},
+  { "answer": "COla"},
+  { "answer": "Ei"}, 
+  { "answer": "Kyllä"},
+  { "answer": "Kahvin takia"},
+  { "answer": "Kyllä"},
+  { "answer": "Kahvin takia"},
+  { "answer": "2 vuotta"}, 
+  { "answer": "En"},
+  { "answer": "COla"}
 ]
 ```
 
@@ -185,17 +185,17 @@ API response:
 
 ```
 Body: [
-{ "id": 1, "answer": "2 vuotta"}, 
-{ "id": 2, "answer": "En"},
-{ "id": 3, "answer": "COla"},
-{ "id": 4, "answer": "Ei"}, 
-{ "id": 5, "answer": "Kyllä"},
-{ "id": 6, "answer": "Kahvin takia"},
-{ "id": 7, "answer": "Kyllä"},
-{ "id": 8, "answer": "Kahvin takia"},
-{ "id": 9, "answer": "2 vuotta"}, 
-{ "id": 10, "answer": "En"},
-{ "id": 11, "answer": "COla"}
+  { "id": 1, "answer": "2 vuotta"}, 
+  { "id": 2, "answer": "En"},
+  { "id": 3, "answer": "COla"},
+  { "id": 4, "answer": "Ei"}, 
+  { "id": 5, "answer": "Kyllä"},
+  { "id": 6, "answer": "Kahvin takia"},
+  { "id": 7, "answer": "Kyllä"},
+  { "id": 8, "answer": "Kahvin takia"},
+  { "id": 9, "answer": "2 vuotta"}, 
+  { "id": 10, "answer": "En"},
+  { "id": 11, "answer": "COla"}
 ]
 ```
 
