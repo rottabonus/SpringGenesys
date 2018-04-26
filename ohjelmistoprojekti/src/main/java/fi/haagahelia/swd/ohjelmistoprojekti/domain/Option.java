@@ -22,6 +22,8 @@ public class Option {
 	@JsonIgnore
 	@JoinColumn(name = "question_id")
 	private Question question;
+	
+	
 
 	public Long getOption_id() {
 		return option_id;
