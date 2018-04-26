@@ -16,6 +16,7 @@
 		
 		<tr th:each="team : ${teams}">
 			<td th:text="${team.team_name}"></td>
+			<td><Button th:href="@{/questionlist/team/{id}(id=${team.team_id})}">Edit</Button></td>
 		</tr>
 	</table>
 	

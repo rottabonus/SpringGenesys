@@ -29,7 +29,7 @@ private List<Answer> answer_list;
 @ManyToOne
 @JsonIgnore
 @JoinColumn(name="team_id")
-private Team team;
+public Team team;
 
 public Long getQuestion_id() {
 	return question_id;
