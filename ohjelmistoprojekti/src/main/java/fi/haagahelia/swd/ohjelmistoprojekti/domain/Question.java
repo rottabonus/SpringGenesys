@@ -29,7 +29,7 @@ private List<Answer> answer_list;
 @ManyToOne
 @JsonIgnore
 @JoinColumn(name="team_id")
-private Team team;
+private Survey survey;
 
 public Long getQuestion_id() {
 	return question_id;
@@ -47,12 +47,12 @@ public void setQuestion(String question) {
 	this.question = question;
 }
 
-public Team getTeam_id() {
-	return team;
+public Survey getTeam_id() {
+	return survey;
 }
 
-public void setTeam_id(Team team) {
-	this.team = team;
+public void setTeam_id(Survey survey) {
+	this.survey = survey;
 }
 
 public String getQuestion_type() {
@@ -72,12 +72,12 @@ public void setAnswer_list(List<Answer> answer_list) {
 }
 
 
-public Question(String question, String question_type, List<Answer> answer_list, Team team) {
+public Question(String question, String question_type, List<Answer> answer_list, Survey survey) {
 	super();
 	this.question = question;
 	this.question_type = question_type;
 	this.answer_list = answer_list;
-	this.team = team;
+	this.survey = survey;
 }
 
 public Question() {
@@ -85,7 +85,7 @@ public Question() {
 	this.question = null;
 	this.question_type = null;
 	this.answer_list = null;
-	this.team = null;
+	this.survey = null;
 }
 
 
