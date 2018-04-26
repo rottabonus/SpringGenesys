@@ -19,7 +19,7 @@ public class ChoiceAnswer {
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name="option_id")
-	private Option option;
+	private AnswerOption option;
 
 	public Long getChoice_id() {
 		return choice_id;
@@ -29,15 +29,15 @@ public class ChoiceAnswer {
 		this.choice_id = choice_id;
 	}
 
-	public Option getOption() {
+	public AnswerOption getOption() {
 		return option;
 	}
 
-	public void setOption(Option option) {
+	public void setOption(AnswerOption option) {
 		this.option = option;
 	}
 
-	public ChoiceAnswer(Option option) {
+	public ChoiceAnswer(AnswerOption option) {
 		super();
 		this.option = option;
 	}

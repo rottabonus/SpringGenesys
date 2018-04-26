@@ -33,7 +33,7 @@ private Survey survey;
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 @JsonIgnore
-private List<Option> option_list;
+private List<AnswerOption> option_list;
 
 public Survey getSurvey() {
 	return survey;
@@ -43,11 +43,11 @@ public void setSurvey(Survey survey) {
 	this.survey = survey;
 }
 
-public List<Option> getOption_list() {
+public List<AnswerOption> getOption_list() {
 	return option_list;
 }
 
-public void setOption_list(List<Option> option_list) {
+public void setOption_list(List<AnswerOption> option_list) {
 	this.option_list = option_list;
 }
 
@@ -88,7 +88,7 @@ public void setAnswer_list(List<Answer> answer_list) {
 
 
 public Question(String question, String question_type, List<Answer> answer_list, Survey survey,
-		List<Option> option_list) {
+		List<AnswerOption> option_list) {
 	super();
 	this.question = question;
 	this.question_type = question_type;

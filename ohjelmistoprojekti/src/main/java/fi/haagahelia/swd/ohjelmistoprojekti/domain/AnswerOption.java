@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Option {
+public class AnswerOption {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -49,13 +49,13 @@ public class Option {
 		this.question = question;
 	}
 
-	public Option(String option, Question question) {
+	public AnswerOption(String option, Question question) {
 		super();
 		this.option = option;
 		this.question = question;
 	}
 
-	public Option() {}
+	public AnswerOption() {}
 
 	
 }
