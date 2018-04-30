@@ -32,7 +32,7 @@ public class Survey {
 		this.survey_id = survey_id;
 	}
 
-	public String getSurvey_name() {
+	public String getSurvey() {
 		return survey;
 	}
 

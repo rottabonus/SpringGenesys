@@ -15,7 +15,8 @@
 		</tr>
 
 		<tr th:each="survey : ${surveys}">
-			<td th:text="${survey.survey_name}"></td>
+			<td th:text="${survey.survey}"></td>
+			<td><a th:href="@{/questionlist/survey/{id}(id=${survey.survey_id})}">edit survey</a></td>
 		</tr>
 	</table>
 	
