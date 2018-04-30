@@ -1,5 +1,6 @@
 package fi.haagahelia.swd.ohjelmistoprojekti.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Answer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
@@ -26,7 +28,10 @@ public class RestController {
 	
 	@Autowired
 	private AnswerRepository arepository;
-
+	
+	@Autowired
+	private ChoiceAnswerRepository crepository;
+	
 	// REST get all questions
 		@RequestMapping(value="/questions", method=RequestMethod.GET)
 		public @ResponseBody List<Question> questionListRest() {	
@@ -95,8 +100,24 @@ public class RestController {
 		
 		//GET answers by Survey THIS IS NOT FINISHED!!!!!
 		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<Answer> getAnswerListBySurvey(@PathVariable("id")Survey survey){
-			return (List<Answer>) arepository.findAll();
+		public @ResponseBody List<Answer> getAnswerListBySurvey(@PathVariable("id")Long id){	
+		
+			//create list where put all answers from option and text answer tables
+			List<Answer> allAnswers = new ArrayList<>();
+			
+			//get all text answers
+			ArrayList tAnswer = new ArrayList<>();
+			tAnswer = arepository.getTextAnswerListBySurvey(id);
+			
+			//get all choice answers
+			ArrayList cAnswer = new ArrayList<>();
+			cAnswer = crepository.getChoiceAnswerListBySurvey(id);
+			
+			//add choice and text answer to same list
+			 allAnswers.addAll(tAnswer);
+			 allAnswers.addAll(cAnswer);
+			
+			return (List<Answer>) allAnswers;
 				}
 		}
 
