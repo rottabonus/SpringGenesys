@@ -13,13 +13,9 @@
 		<tr>
 			<th>Name</th>
 		</tr>
-		
+
 		<tr th:each="survey : ${surveys}">
 			<td th:text="${survey.survey_name}"></td>
-			<td><a th:href="@{/questionlist/survey/{id}(id=${team.team_id})}">Edit</a></td>
-
-		<tr th:each="question : ${questions}">
-			<td th:text="${question.question}"></td>
 		</tr>
 	</table>
 	

@@ -10,13 +10,13 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Answer {
+public class TextAnswer {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long answer_id;
+	private Long text_answer_id;
 	
-	private String answer;
+	private String text_answer;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -24,19 +24,19 @@ public class Answer {
 	private Question question;
 
 	public Long getAnswer_id() {
-		return answer_id;
+		return text_answer_id;
 	}
 
-	public void setAnswer_id(Long answer_id) {
-		this.answer_id = answer_id;
+	public void setAnswer_id(Long text_answer_id) {
+		this.text_answer_id = text_answer_id;
 	}
 
 	public String getAnswer() {
-		return answer;
+		return text_answer;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setAnswer(String text_answer) {
+		this.text_answer = text_answer;
 	}
 
 	public Question getQuestion() {
@@ -47,13 +47,13 @@ public class Answer {
 		this.question = question;
 	}
 
-	public Answer(String answer, Question question) {
+	public TextAnswer(String text_answer, Question question) {
 		super();
-		this.answer = answer;
+		this.text_answer = text_answer;
 		this.question = question;
 	}
 
-	public Answer() {}
+	public TextAnswer() {}
 		
 	
 	

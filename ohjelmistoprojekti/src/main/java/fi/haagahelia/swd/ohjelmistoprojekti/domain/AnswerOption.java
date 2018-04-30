@@ -14,31 +14,33 @@ public class AnswerOption {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long option_id;
+	private Long answer_option_id;
 	
-	private String option;
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="choice_answer_id")
+	private ChoiceAnswer choice_answer;
 	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "question_id")
 	private Question question;
 	
-	
 
-	public Long getOption_id() {
-		return option_id;
+	public Long getAnswer_option_id() {
+		return answer_option_id;
 	}
 
-	public void setOption_id(Long option_id) {
-		this.option_id = option_id;
+	public void setAnswer_option_id(Long answer_option_id) {
+		this.answer_option_id = answer_option_id;
 	}
 
-	public String getOption() {
-		return option;
+	public ChoiceAnswer getChoice_answer() {
+		return choice_answer;
 	}
 
-	public void setOption(String option) {
-		this.option = option;
+	public void setChoice_answer(ChoiceAnswer choice_answer) {
+		this.choice_answer = choice_answer;
 	}
 
 	public Question getQuestion() {
@@ -49,9 +51,9 @@ public class AnswerOption {
 		this.question = question;
 	}
 
-	public AnswerOption(String option, Question question) {
+	public AnswerOption(ChoiceAnswer choice_answer, Question question) {
 		super();
-		this.option = option;
+		this.choice_answer = choice_answer;
 		this.question = question;
 	}
 

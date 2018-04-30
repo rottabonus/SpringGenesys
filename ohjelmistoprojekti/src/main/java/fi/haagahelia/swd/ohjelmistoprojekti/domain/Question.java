@@ -20,11 +20,11 @@ public class Question {
 @GeneratedValue(strategy=GenerationType.AUTO)
 private Long question_id;
 private String question;
-private String question_type;
+private Long question_type_id;
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 @JsonIgnore
-private List<Answer> answer_list;
+private List<TextAnswer> answer_list;
 
 @ManyToOne
 @JsonIgnore
@@ -68,30 +68,30 @@ public void setQuestion(String question) {
 }
 
 
-public String getQuestion_type() {
-	return question_type;
+public Long getQuestionTypeId() {
+	return question_type_id;
 }
 
-public void setQuestion_type(String question_type) {
-	this.question_type = question_type;
+public void setQuestionTypeId(Long question_type_id) {
+	this.question_type_id = question_type_id;
 }
 
-public List<Answer> getAnswer_list() {
+public List<TextAnswer> getAnswer_list() {
 	return answer_list;
 }
 
-public void setAnswer_list(List<Answer> answer_list) {
+public void setAnswer_list(List<TextAnswer> answer_list) {
 	this.answer_list = answer_list;
 }
 
 
 
 
-public Question(String question, String question_type, List<Answer> answer_list, Survey survey,
+public Question(String question, Long question_type_id, List<TextAnswer> answer_list, Survey survey,
 		List<AnswerOption> option_list) {
 	super();
 	this.question = question;
-	this.question_type = question_type;
+	this.question_type_id = question_type_id;
 	this.answer_list = answer_list;
 	this.survey = survey;
 	this.option_list = option_list;
@@ -100,7 +100,7 @@ public Question(String question, String question_type, List<Answer> answer_list,
 public Question() {
 	super();
 	this.question = null;
-	this.question_type = null;
+	this.question_type_id = null;
 	this.answer_list = null;
 	this.survey = null;
 	this.option_list = null;
