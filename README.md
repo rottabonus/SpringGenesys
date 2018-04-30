@@ -26,6 +26,12 @@ $ git checkout new-feature
 
 In your new branch you can do all the regular Git tasks, e.g. `git add`, `git commit` and `git push`.
 
+You can push your changes to your branch by:
+
+```
+$ git push origin <your-branch>
+```
+
 When your new feature is done, you can request Pull Request on GitHub so that feature would be added to `master` branch.
 
 If you happen to change computers during your coding. You can clone the your branch with:
