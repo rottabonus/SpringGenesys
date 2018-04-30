@@ -28,7 +28,7 @@ In your new branch you can do all the regular Git tasks, e.g. `git add`, `git co
 
 When your new feature is done, you can request Pull Request on GitHub so that feature would be added to `master` branch.
 
-If you happen to change computers during your coding. You can clone the repository with:
+If you happen to change computers during your coding. You can clone the your branch with:
 
 ```
 $ git clone -b <your-branch> https://github.com/rottabonus/SpringGenesys.git
