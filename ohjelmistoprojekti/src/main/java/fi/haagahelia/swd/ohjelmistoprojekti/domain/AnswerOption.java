@@ -1,11 +1,15 @@
 package fi.haagahelia.swd.ohjelmistoprojekti.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,15 +22,16 @@ public class AnswerOption {
 	
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="choice_answer_id")
-	private ChoiceAnswer choice_answer;
-	
-	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "question_id")
 	private Question question;
 	
-
+	private String answer_option;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "answer_option")
+	@JsonIgnore
+	private List<ChoiceAnswer> choice_answer_list;
+	
+	
 	public Long getAnswer_option_id() {
 		return answer_option_id;
 	}
@@ -35,13 +40,7 @@ public class AnswerOption {
 		this.answer_option_id = answer_option_id;
 	}
 
-	public ChoiceAnswer getChoice_answer() {
-		return choice_answer;
-	}
-
-	public void setChoice_answer(ChoiceAnswer choice_answer) {
-		this.choice_answer = choice_answer;
-	}
+	
 
 	public Question getQuestion() {
 		return question;
@@ -51,10 +50,29 @@ public class AnswerOption {
 		this.question = question;
 	}
 
-	public AnswerOption(ChoiceAnswer choice_answer, Question question) {
+	
+	public String getAnswer_option() {
+		return answer_option;
+	}
+
+	public void setAnswer_option(String answer_option) {
+		this.answer_option = answer_option;
+	}
+
+
+	public List<ChoiceAnswer> getChoice_answer_list() {
+		return choice_answer_list;
+	}
+
+	public void setChoice_answer_list(List<ChoiceAnswer> choice_answer_list) {
+		this.choice_answer_list = choice_answer_list;
+	}
+
+	public AnswerOption(Question question, String answer_option, List<ChoiceAnswer> choice_answer_list) {
 		super();
-		this.choice_answer = choice_answer;
 		this.question = question;
+		this.answer_option = answer_option;
+		this.choice_answer_list = choice_answer_list;
 	}
 
 	public AnswerOption() {}

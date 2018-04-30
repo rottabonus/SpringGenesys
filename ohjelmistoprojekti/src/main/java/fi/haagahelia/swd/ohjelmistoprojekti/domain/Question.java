@@ -19,12 +19,13 @@ public class Question {
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 private Long question_id;
-private String question;
-private Long question_type_id;
 
-@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+@ManyToOne
 @JsonIgnore
-private List<TextAnswer> answer_list;
+@JoinColumn(name="question_type_id")
+private QuestionType question_type;
+
+private String question;
 
 @ManyToOne
 @JsonIgnore
@@ -34,6 +35,10 @@ private Survey survey;
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 @JsonIgnore
 private List<AnswerOption> option_list;
+
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+@JsonIgnore
+private List<TextAnswer> answer_list;
 
 public Survey getSurvey() {
 	return survey;
@@ -68,13 +73,7 @@ public void setQuestion(String question) {
 }
 
 
-public Long getQuestionTypeId() {
-	return question_type_id;
-}
 
-public void setQuestionTypeId(Long question_type_id) {
-	this.question_type_id = question_type_id;
-}
 
 public List<TextAnswer> getAnswer_list() {
 	return answer_list;
@@ -84,27 +83,28 @@ public void setAnswer_list(List<TextAnswer> answer_list) {
 	this.answer_list = answer_list;
 }
 
+public QuestionType getQuestion_type() {
+	return question_type;
+}
 
+public void setQuestion_type(QuestionType question_type) {
+	this.question_type = question_type;
+}
 
-
-public Question(String question, Long question_type_id, List<TextAnswer> answer_list, Survey survey,
+public Question(String question, QuestionType question_type, List<TextAnswer> answer_list, Survey survey,
 		List<AnswerOption> option_list) {
 	super();
 	this.question = question;
-	this.question_type_id = question_type_id;
+	this.question_type = question_type;
 	this.answer_list = answer_list;
 	this.survey = survey;
 	this.option_list = option_list;
 }
 
-public Question() {
-	super();
-	this.question = null;
-	this.question_type_id = null;
-	this.answer_list = null;
-	this.survey = null;
-	this.option_list = null;
-}
+public Question() {}
+
+
+
 
 
 
