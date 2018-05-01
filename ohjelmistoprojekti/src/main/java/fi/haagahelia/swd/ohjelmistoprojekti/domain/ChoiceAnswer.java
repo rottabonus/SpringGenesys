@@ -14,33 +14,40 @@ public class ChoiceAnswer {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long choice_id;
+	private Long choice_answer_id;
 	
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="option_id")
-	private AnswerOption option;
+	@JoinColumn(name = "answer_option_id")
+	private AnswerOption answer_option;
 
-	public Long getChoice_id() {
-		return choice_id;
+	
+	public Long getChoice_answer_id() {
+		return choice_answer_id;
 	}
 
-	public void setChoice_id(Long choice_id) {
-		this.choice_id = choice_id;
+
+	public void setChoice_answer_id(Long choice_answer_id) {
+		this.choice_answer_id = choice_answer_id;
 	}
 
-	public AnswerOption getOption() {
-		return option;
+
+	public AnswerOption getAnswer_option() {
+		return answer_option;
 	}
 
-	public void setOption(AnswerOption option) {
-		this.option = option;
+
+	public void setAnswer_option(AnswerOption answer_option) {
+		this.answer_option = answer_option;
 	}
 
-	public ChoiceAnswer(AnswerOption option) {
+	
+
+	public ChoiceAnswer(AnswerOption answer_option) {
 		super();
-		this.option = option;
+		this.answer_option = answer_option;
 	}
+
 
 	public ChoiceAnswer() {}
 	

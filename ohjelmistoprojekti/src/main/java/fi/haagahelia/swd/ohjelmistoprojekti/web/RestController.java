@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.Answer;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOptionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswer;
 
 @CrossOrigin
 @Controller
@@ -26,6 +30,12 @@ public class RestController {
 	
 	@Autowired
 	private AnswerRepository arepository;
+	
+	@Autowired
+	private ChoiceAnswerRepository carepository;
+	
+	@Autowired
+	private AnswerOptionRepository aorepository;
 
 	// REST get all questions
 		@RequestMapping(value="/questions", method=RequestMethod.GET)
@@ -40,30 +50,54 @@ public class RestController {
 		}
 
 		//REST questions by survey
-		@CrossOrigin
 		@RequestMapping(value="/questions/survey/{id}", method=RequestMethod.GET)
 		public @ResponseBody List<Question> findSurveyQuestionRest(@PathVariable("id") Survey survey){
 			return (List<Question>) survey.getQuestion_list();
 		}
 		
-		
+		//REST AnswerOptions by questionId
+		@RequestMapping(value="/answeroptions/question/{id}", method=RequestMethod.GET)
+		public @ResponseBody List<AnswerOption> findAnswerOptionsByQuestionRest(@PathVariable("id") Question questionId){
+			return (List<AnswerOption>) questionId.getOption_list();
+		}
+								
 		// POST answer by questionId
-		@RequestMapping(value="/answers/{id}", method=RequestMethod.POST)
-		public @ResponseBody Answer createAnswer(@PathVariable("id") Question questionId, @RequestBody Answer answer){
+		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
+		public @ResponseBody TextAnswer createAnswer(@PathVariable("id") Question questionId, @RequestBody TextAnswer answer){
 			answer.setQuestion(questionId);
 			 arepository.save(answer);
 			return answer;
 		}
 		
+		//POST choice_answer by questionId
+		@RequestMapping(value="/chanswers/question/{id}", method=RequestMethod.POST)
+		public @ResponseBody AnswerOption createChoiceAnswer(@PathVariable("id") Question questionId, @RequestBody AnswerOption option){
+			
+			//Create new ChoiceAnswer and set Option
+			ChoiceAnswer answer = new ChoiceAnswer();
+			answer.setAnswer_option(option);
+			
+			//set AnswerOption for responseBody (not really necessary)
+			Long answerOption = option.getAnswer_option_id();
+			option.setAnswer_option(aorepository.findOne(answerOption).getAnswer_option());
+			
+			//set Question for responseBody
+			option.setQuestion(questionId);
+			
+			//save choiceAnswer
+			carepository.save(answer);
+			return option;
+		}
+		
 		//GET all answers
 		@RequestMapping(value="/answers", method=RequestMethod.GET)
-		public @ResponseBody List<Answer> answerListRest() {	
-	        return (List<Answer>) arepository.findAll();
+		public @ResponseBody List<TextAnswer> answerListRest() {	
+	        return (List<TextAnswer>) arepository.findAll();
 		}
 		
 		//POST answers by Survey
 		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.POST)
-		public @ResponseBody List<Answer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody List<Answer> answerList){
+		public @ResponseBody List<TextAnswer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody List<TextAnswer> answerList){
 
 			List<Question> questionList = findSurveyQuestionRest(survey);
 			Long questionId = questionList.get(0).getQuestion_id();
@@ -74,7 +108,7 @@ public class RestController {
 			//Loop through answers and assign questions 
 			int c = 0;
 				for(Long i = questionId; i < answerList.size() + questionId; i++) {
-					Answer answer = answerList.get(c);
+					TextAnswer answer = answerList.get(c);
 						answer.setQuestion(qrepository.findOne(i));
 							c++;
 								System.out.println("Question id: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
@@ -84,8 +118,11 @@ public class RestController {
 			arepository.save(answerList);
 				System.out.println("answerList.size() is : " + answerList.size() +
 						" and answerLists first answer is : " + answerList.get(0).getAnswer());
-								return (List<Answer>) answerList;
+								return (List<TextAnswer>) answerList;
 					}
+		
+		
+		
 		/*//REST questions by survey
 				@CrossOrigin
 				@RequestMapping(value="/questions/survey/{id}", method=RequestMethod.GET)
@@ -94,10 +131,10 @@ public class RestController {
 				}*/
 		
 		//GET answers by Survey THIS IS NOT FINISHED!!!!!
-		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<Answer> getAnswerListBySurvey(@PathVariable("id")Survey survey){
-			return (List<Answer>) arepository.findAll();
-				}
+//		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
+//		public @ResponseBody List<TextAnswer> getAnswerListBySurvey(@PathVariable("id")Survey survey){
+//			return (List<TextAnswer>) arepository.findAll();
+//				}
 		}
 
 
