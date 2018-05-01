@@ -3,8 +3,6 @@ package fi.haagahelia.swd.ohjelmistoprojekti.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +18,6 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionType;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswer;
 
@@ -48,11 +45,8 @@ public class RestController {
 		
 		//REST questions by id
 		@RequestMapping(value="/questions/{id}", method=RequestMethod.GET)
-		public @ResponseBody ResponseEntity<Question> findQuestionRest(@PathVariable("id") Long questionId){
-			Question question = qrepository.findOne(questionId);
-			QuestionType questiontype = question.getQuestion_type();
-			System.out.println(questiontype.getQuestion_type());
-			return new ResponseEntity<Question>(question, HttpStatus.OK);
+		public @ResponseBody Question findQuestionRest(@PathVariable("id") Long questionId){
+			return qrepository.findOne(questionId);
 		}
 
 		//REST questions by survey
@@ -61,13 +55,16 @@ public class RestController {
 			return (List<Question>) survey.getQuestion_list();
 		}
 		
-		
+		//REST AnswerOptions by questionId
+		@RequestMapping(value="/answeroptions/question/{id}", method=RequestMethod.GET)
+		public @ResponseBody List<AnswerOption> findAnswerOptionsByQuestionRest(@PathVariable("id") Question questionId){
+			return (List<AnswerOption>) questionId.getOption_list();
+		}
 								
 		// POST answer by questionId
 		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
 		public @ResponseBody TextAnswer createAnswer(@PathVariable("id") Question questionId, @RequestBody TextAnswer answer){
 			answer.setQuestion(questionId);
-			System.out.println(answer.getAnswer());
 			 arepository.save(answer);
 			return answer;
 		}
@@ -83,6 +80,9 @@ public class RestController {
 			//set AnswerOption for responseBody (not really necessary)
 			Long answerOption = option.getAnswer_option_id();
 			option.setAnswer_option(aorepository.findOne(answerOption).getAnswer_option());
+			
+			//set Question for responseBody
+			option.setQuestion(questionId);
 			
 			//save choiceAnswer
 			carepository.save(answer);

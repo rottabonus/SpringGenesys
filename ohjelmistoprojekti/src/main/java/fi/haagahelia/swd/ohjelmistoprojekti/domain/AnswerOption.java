@@ -21,7 +21,6 @@ public class AnswerOption {
 	private Long answer_option_id;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "question_id")
 	private Question question;
 	

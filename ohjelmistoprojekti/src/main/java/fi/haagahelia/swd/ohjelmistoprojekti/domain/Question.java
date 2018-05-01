@@ -21,14 +21,12 @@ public class Question {
 private Long question_id;
 
 @ManyToOne
-@JsonIgnore
 @JoinColumn(name="question_type_id")
 private QuestionType question_type;
 
 private String question;
 
 @ManyToOne
-@JsonIgnore
 @JoinColumn(name="survey_id")
 private Survey survey;
 
