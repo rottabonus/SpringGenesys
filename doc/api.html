@@ -1,143 +1,133 @@
+<html>
+  <meta charset="utf-8">
 <h1 id="ohjelmistoprojekti-api-dokumentaatio">Ohjelmistoprojekti API Dokumentaatio</h1>
 <h2 id="kaikki-kysymykset">Kaikki Kysymykset</h2>
 <p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/" class="uri">http://167.99.253.212:8080/ohjelmistoprojekti/questions/</a></p>
 <p>Method: GET</p>
 <p>API Response:</p>
 <pre><code>[
-  {
-    &quot;question_id&quot;: 1,
-    &quot;question&quot;: &quot;Sukupuoli?&quot;,
-    &quot;question_type&quot;: &quot;avoin&quot;,
-    &quot;team_id&quot;: {
-      &quot;team_id&quot;: 1,
-      &quot;team_name&quot;: &quot;Les Pasila&quot;
-      }
-  },
-  {
-    &quot;question_id&quot;: 2,
-    &quot;question&quot;: &quot;Ikä?&quot;,
-    &quot;question_type&quot;: &quot;monivalinta&quot;,
-    &quot;team_id&quot;: {
-      &quot;team_id&quot;: 1,
-      &quot;team_name&quot;: &quot;Les Pasila&quot;
-      }
-  },
+    {
+        &quot;question_id&quot;: 1,
+        &quot;question_type&quot;: {
+            &quot;question_type_id&quot;: 2,
+            &quot;question_type&quot;: &quot;text&quot;
+        },
+        &quot;question&quot;: &quot;Sukupuoli?&quot;,
+        &quot;survey&quot;: {
+            &quot;survey_id&quot;: 1,
+            &quot;survey&quot;: &quot;Les Pasila&quot;
+        },
+        &quot;option_list&quot;: [
+            {
+                &quot;answer_option_id&quot;: 1,
+                &quot;answer_option&quot;: &quot;banaani&quot;
+            }
+        ]
+    },
+    {
+        &quot;question_id&quot;: 2,
+        &quot;question_type&quot;: {
+            &quot;question_type_id&quot;: 1,
+            &quot;question_type&quot;: &quot;radio&quot;
+        },
+        &quot;question&quot;: &quot;Ikä?&quot;,
+        &quot;survey&quot;: {
+            &quot;survey_id&quot;: 1,
+            &quot;survey&quot;: &quot;Les Pasila&quot;
+        },
+        &quot;option_list&quot;: []
+    },
 .
 .
 .</code></pre>
 <h2 id="yksi-kysymys">Yksi Kysymys</h2>
-<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/1" class="uri">http://167.99.253.212:8080/ohjelmistoprojekti/questions/1</a></p>
+<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/5">http://167.99.253.212:8080/ohjelmistoprojekti/questions/1</a></p>
 <p>Method: GET</p>
 <p>URL:n viimeinen numero vastaa <code>question_id</code>:tä.</p>
 <p>API Response:</p>
 <pre><code>{
-  &quot;question_id&quot;: 1,
-  &quot;question&quot;: &quot;Sukupuoli?&quot;,
-  &quot;question_type&quot;: &quot;avoin&quot;,
-  &quot;team_id&quot;: {
-    &quot;team_id&quot;: 1,
-    &quot;team_name&quot;: &quot;Les Pasila&quot;
-  }
+    &quot;question_id&quot;: 5,
+    &quot;question_type&quot;: {
+        &quot;question_type_id&quot;: 1,
+        &quot;question_type&quot;: &quot;radio&quot;
+    },
+    &quot;question&quot;: &quot;Miten arvioisit opiskelijajärjestöjen ja opiskelijoiden välisen vuorovaikutuksen? (face-to-face, sposti, puhelinnumerot)&quot;,
+    &quot;survey&quot;: {
+        &quot;survey_id&quot;: 1,
+        &quot;survey&quot;: &quot;Les Pasila&quot;
+    },
+    &quot;option_list&quot;: [
+        {
+            &quot;answer_option_id&quot;: 2,
+            &quot;answer_option&quot;: &quot;Face-to-Face&quot;
+        },
+        {
+            &quot;answer_option_id&quot;: 3,
+            &quot;answer_option&quot;: &quot;Sposti&quot;
+        },
+        {
+            &quot;answer_option_id&quot;: 4,
+            &quot;answer_option&quot;: &quot;Puhelin&quot;
+        }
+    ]
 }</code></pre>
 <h2 id="tiimikohtaiset-kysymykset">Tiimikohtaiset Kysymykset</h2>
-<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1" class="uri">http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1</a></p>
+<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1">http://167.99.253.212:8080/ohjelmistoprojekti/questions/survey/1</a></p>
 <p>Method: GET</p>
-<p>URL:n viimeinen numero vastaa <code>team_id</code>:tä. <code>team_id: 1</code> on Les Pasila ja <code>team_id: 2</code> on Kari Grandit.</p>
+<p>URL:n viimeinen numero vastaa <code>survey_id</code>:tä. <code>survey_id: 1</code> on Les Pasila ja <code>survey_id: 2</code> on Kari Grandit.</p>
 <p>API Respone:</p>
 <pre><code>[
-  {
-    &quot;question_id&quot;: 1,
-    &quot;question&quot;: &quot;Sukupuoli?&quot;,
-    &quot;question_type&quot;: &quot;avoin&quot;,
-    &quot;team_id&quot;: {
-      &quot;team_id&quot;: 1,
-      &quot;team_name&quot;: &quot;Les Pasila&quot;
-    }
-  },
-  {
-    &quot;question_id&quot;: 2,
-    &quot;question&quot;: &quot;Ikä?&quot;,
-    &quot;question_type&quot;: &quot;monivalinta&quot;,
-    &quot;team_id&quot;: {
-      &quot;team_id&quot;: 1,
-      &quot;team_name&quot;: &quot;Les Pasila&quot;
-    }
-  },
+    {
+        &quot;question_id&quot;: 2,
+        &quot;question_type&quot;: {
+            &quot;question_type_id&quot;: 1,
+            &quot;question_type&quot;: &quot;radio&quot;
+        },
+        &quot;question&quot;: &quot;Ikä?&quot;,
+        &quot;survey&quot;: {
+            &quot;survey_id&quot;: 1,
+            &quot;survey&quot;: &quot;Les Pasila&quot;
+        },
+        &quot;option_list&quot;: []
+    },
+    {
+        &quot;question_id&quot;: 3,
+        &quot;question_type&quot;: {
+            &quot;question_type_id&quot;: 1,
+            &quot;question_type&quot;: &quot;radio&quot;
+        },
+        &quot;question&quot;: &quot;Millä kampuksella opiskelet?&quot;,
+        &quot;survey&quot;: {
+            &quot;survey_id&quot;: 1,
+            &quot;survey&quot;: &quot;Les Pasila&quot;
+        },
+        &quot;option_list&quot;: []
+    },
 .
 .
 .</code></pre>
 <h2 id="yksittäisen-vastauksen-postaaminen">Yksittäisen vastauksen postaaminen</h2>
-<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/answers/1" class="uri">http://167.99.253.212:8080/ohjelmistoprojekti/answers/1</a></p>
+<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/answers/1">http://167.99.253.212:8080/ohjelmistoprojekti/answers/question/1</a></p>
+<p>Url:n viimeinen numero vastaa <code>question_id</code>:tä, johon answer halutaan liittää.</p>
+<p>HUOM! RequestBody täytyy olla oikeassa muodossa!</p>
+<ol style="list-style-type: decimal">
+<li>Jos kysymyksessä on tekstivastaus</li>
+</ol>
 <p>Method: POST</p>
 <pre><code>Headers: Key: &quot;Content-Type&quot;, Value: &quot;application-json&quot;</code></pre>
 <pre><code>Body: {
-  &quot;answer&quot;: &quot;koira&quot;
+  &quot;text_answer&quot;: {&quot;answer&quot;: &quot;2 vuotta&quot;}
 }</code></pre>
-<p>Url:n viimeinen numero vastaa <code>question_id</code>:tä, johon answer halutaan liittää.</p>
 <p>API response:</p>
-<pre><code>{
-  &quot;answer&quot;: &quot;koira&quot;
+<pre><code>posted textAnswer: 2 vuotta</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Jos kysymyksessä on radiovastaus</li>
+</ol>
+<pre><code>Body: {
+  &quot;answer_option&quot;: {&quot;answer_option_id&quot;: &quot;3&quot;}
 }</code></pre>
-<h2 id="vastauksien-postaaminen-listana-teamin-mukaan">Vastauksien postaaminen listana Teamin mukaan</h2>
-<p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/answers/team/2" class="uri">http://167.99.253.212:8080/ohjelmistoprojekti/answers/team/2</a></p>
-<p>Method: POST</p>
-<pre><code>Headers: Key: &quot;Content-Type&quot;, Value: &quot;application-json&quot;</code></pre>
-<pre><code>Body: [
-  {&quot;id&quot;: 0, &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;En&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;COla&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;Ei&quot;}, 
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;En&quot;},
-  { &quot;id&quot;: 0, &quot;answer&quot;: &quot;COla&quot;}
-]</code></pre>
-<p>Url:n viimeinen numero vastaa <code>team_id</code>:tä, johon lista vastauksista halutaan liittää. Vastaukset saavat<code>question_id</code>:n aina järjestyksessä. Esim. Ensimmäinen vastaus saa ensimmäisen <code>team_id</code>:n <code>question_id</code>:n. API response:</p>
-<pre><code>Body: [
-  { &quot;id&quot;: 1, &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;id&quot;: 2, &quot;answer&quot;: &quot;En&quot;},
-  { &quot;id&quot;: 3, &quot;answer&quot;: &quot;COla&quot;},
-  { &quot;id&quot;: 4, &quot;answer&quot;: &quot;Ei&quot;}, 
-  { &quot;id&quot;: 5, &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;id&quot;: 6, &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;id&quot;: 7, &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;id&quot;: 8, &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;id&quot;: 9, &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;id&quot;: 10, &quot;answer&quot;: &quot;En&quot;},
-  { &quot;id&quot;: 11, &quot;answer&quot;: &quot;COla&quot;}
-]</code></pre>
-<p>Vastauksen attribuutin &quot;id&quot; arvo ei vaikuta mihinkään. Sen voi siis jättää tyhjäksi!</p>
-<p>=&gt;</p>
-<pre><code>Body: [
-  { &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;answer&quot;: &quot;En&quot;},
-  { &quot;answer&quot;: &quot;COla&quot;},
-  { &quot;answer&quot;: &quot;Ei&quot;}, 
-  { &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;answer&quot;: &quot;En&quot;},
-  { &quot;answer&quot;: &quot;COla&quot;}
-]</code></pre>
 <p>API response:</p>
-<pre><code>Body: [
-  { &quot;id&quot;: 1, &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;id&quot;: 2, &quot;answer&quot;: &quot;En&quot;},
-  { &quot;id&quot;: 3, &quot;answer&quot;: &quot;COla&quot;},
-  { &quot;id&quot;: 4, &quot;answer&quot;: &quot;Ei&quot;}, 
-  { &quot;id&quot;: 5, &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;id&quot;: 6, &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;id&quot;: 7, &quot;answer&quot;: &quot;Kyllä&quot;},
-  { &quot;id&quot;: 8, &quot;answer&quot;: &quot;Kahvin takia&quot;},
-  { &quot;id&quot;: 9, &quot;answer&quot;: &quot;2 vuotta&quot;}, 
-  { &quot;id&quot;: 10, &quot;answer&quot;: &quot;En&quot;},
-  { &quot;id&quot;: 11, &quot;answer&quot;: &quot;COla&quot;}
-]</code></pre>
+<pre><code>posted choiceAnswer: 23</code></pre>
 <h2 id="vastaukset">Vastaukset</h2>
 <p><a href="http://167.99.253.212:8080/ohjelmistoprojekti/answers/" class="uri">http://167.99.253.212:8080/ohjelmistoprojekti/answers/</a></p>
 <p>Method: GET</p>
@@ -157,3 +147,4 @@
 .
 .
 .</code></pre>
+</html>
