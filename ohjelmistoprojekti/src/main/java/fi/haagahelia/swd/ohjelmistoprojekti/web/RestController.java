@@ -58,32 +58,41 @@ public class RestController {
 										
 		//POST any answer by questionId
 		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
-		public @ResponseBody String createChoiceAnswer(@PathVariable("id") Question questionId, @RequestBody RequestWrapper requestWrapper){
+		public @ResponseBody String createAnswer(@PathVariable("id") Question questionId, @RequestBody RequestWrapper requestWrapper){
 			
 			//checkQuestionType
 			QuestionType questionType = questionId.getQuestion_type();
 			Long type = questionType.getQuestion_type_id();
-			System.out.println(type);
-			System.out.println(requestWrapper.getAnswer_option() + "  , " + requestWrapper.getText_answer());
+			System.out.println(type + "\nRequestWrapper: " + requestWrapper.getAnswer_option());
+			String error = "Something went wrong";
+			
 			if(type == 1){
 				
-				//Create new ChoiceAnswer and set Option
-				ChoiceAnswer answer = new ChoiceAnswer();
-				AnswerOption option = requestWrapper.getAnswer_option();
-				answer.setAnswer_option(option);
-									
-				//save choiceAnswer
-				carepository.save(answer);
-				return "posted choiceAnswer: " + answer.getChoice_answer_id();
+				if(requestWrapper.getAnswer_option() != null){
+					//Create new ChoiceAnswer and set Option
+					ChoiceAnswer answer = new ChoiceAnswer();
+					AnswerOption option = requestWrapper.getAnswer_option();
+					answer.setAnswer_option(option);
+					System.out.println(answer.getChoice_answer_id());			
+					//save choiceAnswer
+					carepository.save(answer);
+					System.out.println(answer.getChoice_answer_id());
+					return "posted choiceAnswer: " + answer.getChoice_answer_id();
+				}
+				return error;
 			}
 			
 			else {
-				TextAnswer tanswer = requestWrapper.getText_answer();
-				System.out.println("inside textanswer loop " + tanswer.getAnswer()+
-				"\nquestionId: "  + questionId.getQuestion_id());
-				tanswer.setQuestion(questionId);
-				 arepository.save(tanswer);
-				return "posted textAnswer: " + tanswer.getAnswer();
+				
+				if(requestWrapper.getText_answer() != null){
+					TextAnswer tanswer = requestWrapper.getText_answer();
+					System.out.println("inside textanswer loop " + tanswer.getAnswer()+
+					"\nquestionId: "  + questionId.getQuestion_id());
+					tanswer.setQuestion(questionId);
+					 arepository.save(tanswer);
+					return "posted textAnswer: " + tanswer.getAnswer();
+				}
+				return error;
 			}
 			
 		}
