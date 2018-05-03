@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOptionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
@@ -36,8 +35,7 @@ public class RestController {
 	@Autowired
 	private ChoiceAnswerRepository carepository;
 	
-	@Autowired
-	private AnswerOptionRepository aorepository;
+
 
 	// REST get all questions
 		@RequestMapping(value="/questions", method=RequestMethod.GET)
@@ -57,13 +55,7 @@ public class RestController {
 			return (List<Question>) survey.getQuestion_list();
 		}
 		
-		//REST AnswerOptions by questionId
-		@RequestMapping(value="/answeroptions/question/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<AnswerOption> findAnswerOptionsByQuestionRest(@PathVariable("id") Question questionId){
-			return (List<AnswerOption>) questionId.getOption_list();
-		}
-								
-		
+										
 		//POST any answer by questionId
 		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
 		public @ResponseBody String createChoiceAnswer(@PathVariable("id") Question questionId, @RequestBody RequestWrapper requestWrapper){
@@ -102,47 +94,7 @@ public class RestController {
 //	        return (List<TextAnswer>) arepository.findAll();
 //		}
 		
-		//POST answers by Survey
-		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.POST)
-		public @ResponseBody List<TextAnswer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody RequestWrapper requestWrapper){
 
-			List<Question> questionList = findSurveyQuestionRest(survey);
-			Long questionId = questionList.get(0).getQuestion_id();
-			
-			List<TextAnswer> answerList = requestWrapper.getTanswerList();
-			List<AnswerOption> optionList = requestWrapper.getOptionList();
-			
-				System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
-						" and questionLists first question is: " + questionList.get(0).getQuestion() +
-						"\n and answerList size is: " + answerList.size() + "\nand answerList first answer is " + answerList.get(0).getAnswer() +
-						"\n and optionList size is " +optionList.size() + "\nand optionList first option is" + optionList.get(0).getAnswer_option());
-				
-			//Loop through answers and assign questions 
-//			int c = 0;
-//				for(Long i = questionId; i < answerList.size() + questionId; i++) {
-//					
-//					//checkQuestionType
-//					Question question = qrepository.findOne(questionId);
-//					question.getQuestion_type();
-//					QuestionType questionType = new QuestionType();
-//					Long type = questionType.getQuestion_type_id();
-//					if(type == 1){
-//						System.out.println(type);
-//					}
-//				}
-//					TextAnswer answer = answerList.get(c);
-//						answer.setQuestion(qrepository.findOne(i));
-//							c++;
-//								System.out.println("Question id: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
-//										"\nAnswer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
-//							}
-//			//Saves answerList answers to database
-//			arepository.save(answerList);
-//				System.out.println("answerList.size() is : " + answerList.size() +
-//						" and answerLists first answer is : " + answerList.get(0).getAnswer());
-								return (List<TextAnswer>) answerList;
-					}
-		
 		
 		
 		/*//REST questions by survey

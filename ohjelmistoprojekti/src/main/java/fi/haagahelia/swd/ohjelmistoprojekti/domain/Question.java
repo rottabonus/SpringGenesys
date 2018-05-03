@@ -31,7 +31,6 @@ private String question;
 private Survey survey;
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-@JsonIgnore
 private List<AnswerOption> option_list;
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")

@@ -1,28 +1,14 @@
 package fi.haagahelia.swd.ohjelmistoprojekti.domain;
 
-import java.util.List;
-
 public class RequestWrapper {
 	
 	
 	
 	TextAnswer text_answer;
 	AnswerOption answer_option;
-	List<TextAnswer> tanswerList;
-	List<AnswerOption> optionList;
 	
-	public List<AnswerOption> getOptionList() {
-		return optionList;
-	}
-	public void setOptionList(List<AnswerOption> optionList) {
-		this.optionList = optionList;
-	}
-	public List<TextAnswer> getTanswerList() {
-		return tanswerList;
-	}
-	public void setTanswerList(List<TextAnswer> tanswerList) {
-		this.tanswerList = tanswerList;
-	}
+	
+	
 	public AnswerOption getAnswer_option() {
 		return answer_option;
 	}
