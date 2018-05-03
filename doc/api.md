@@ -10,24 +10,37 @@ API Response:
 
 ```
 [
-  {
-    "question_id": 1,
-	"question": "Sukupuoli?",
-	"question_type": "avoin",
-	"team_id": {
-	  "team_id": 1,
-	  "team_name": "Les Pasila"
-	  }
-  },
-  {
-	"question_id": 2,
-	"question": "Ikä?",
-	"question_type": "monivalinta",
-	"team_id": {
-	  "team_id": 1,
-	  "team_name": "Les Pasila"
-	  }
-  },
+    {
+        "question_id": 1,
+        "question_type": {
+            "question_type_id": 2,
+            "question_type": "text"
+        },
+        "question": "Sukupuoli?",
+        "survey": {
+            "survey_id": 1,
+            "survey": "Les Pasila"
+        },
+        "option_list": [
+            {
+                "answer_option_id": 1,
+                "answer_option": "banaani"
+            }
+        ]
+    },
+    {
+        "question_id": 2,
+        "question_type": {
+            "question_type_id": 1,
+            "question_type": "radio"
+        },
+        "question": "Ikä?",
+        "survey": {
+            "survey_id": 1,
+            "survey": "Les Pasila"
+        },
+        "option_list": []
+    },
 .
 .
 .
@@ -35,7 +48,7 @@ API Response:
 
 ## Yksi Kysymys
 
-[http://167.99.253.212:8080/ohjelmistoprojekti/questions/1](http://167.99.253.212:8080/ohjelmistoprojekti/questions/1)
+[http://167.99.253.212:8080/ohjelmistoprojekti/questions/1](http://167.99.253.212:8080/ohjelmistoprojekti/questions/5)
 
 Method: GET
 
@@ -45,47 +58,72 @@ API Response:
 
 ```
 {
-  "question_id": 1,
-  "question": "Sukupuoli?",
-  "question_type": "avoin",
-  "team_id": {
-    "team_id": 1,
-    "team_name": "Les Pasila"
-  }
+    "question_id": 5,
+    "question_type": {
+        "question_type_id": 1,
+        "question_type": "radio"
+    },
+    "question": "Miten arvioisit opiskelijajärjestöjen ja opiskelijoiden välisen vuorovaikutuksen? (face-to-face, sposti, puhelinnumerot)",
+    "survey": {
+        "survey_id": 1,
+        "survey": "Les Pasila"
+    },
+    "option_list": [
+        {
+            "answer_option_id": 2,
+            "answer_option": "Face-to-Face"
+        },
+        {
+            "answer_option_id": 3,
+            "answer_option": "Sposti"
+        },
+        {
+            "answer_option_id": 4,
+            "answer_option": "Puhelin"
+        }
+    ]
 }
 ```
 
 ## Tiimikohtaiset Kysymykset
 
-[http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1](http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1)
+[http://167.99.253.212:8080/ohjelmistoprojekti/questions/survey/1](http://167.99.253.212:8080/ohjelmistoprojekti/questions/team/1)
 
 Method: GET
 
-URL:n viimeinen numero vastaa `team_id`:tä.
-`team_id: 1` on Les Pasila ja `team_id: 2` on Kari Grandit.
+URL:n viimeinen numero vastaa `survey_id`:tä.
+`survey_id: 1` on Les Pasila ja `survey_id: 2` on Kari Grandit.
 
 API Respone:
 
 ```
 [
-  {
-    "question_id": 1,
-    "question": "Sukupuoli?",
-    "question_type": "avoin",
-    "team_id": {
-      "team_id": 1,
-      "team_name": "Les Pasila"
-    }
-  },
-  {
-    "question_id": 2,
-    "question": "Ikä?",
-    "question_type": "monivalinta",
-    "team_id": {
-      "team_id": 1,
-      "team_name": "Les Pasila"
-    }
-  },
+    {
+        "question_id": 2,
+        "question_type": {
+            "question_type_id": 1,
+            "question_type": "radio"
+        },
+        "question": "Ikä?",
+        "survey": {
+            "survey_id": 1,
+            "survey": "Les Pasila"
+        },
+        "option_list": []
+    },
+    {
+        "question_id": 3,
+        "question_type": {
+            "question_type_id": 1,
+            "question_type": "radio"
+        },
+        "question": "Millä kampuksella opiskelet?",
+        "survey": {
+            "survey_id": 1,
+            "survey": "Les Pasila"
+        },
+        "option_list": []
+    },
 .
 .
 .
