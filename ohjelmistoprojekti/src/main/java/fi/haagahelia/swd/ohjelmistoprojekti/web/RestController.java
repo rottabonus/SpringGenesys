@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
@@ -22,6 +21,7 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionType;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.RequestWrapper;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswer;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswerRepository;
 
 @CrossOrigin
 @Controller
@@ -31,7 +31,7 @@ public class RestController {
 	private QuestionRepository qrepository;
 	
 	@Autowired
-	private AnswerRepository arepository;
+	private TextAnswerRepository tarepository;
 	
 	@Autowired
 	private ChoiceAnswerRepository carepository;
@@ -83,32 +83,53 @@ public class RestController {
 				System.out.println("inside textanswer loop " + tanswer.getAnswer()+
 				"\nquestionId: "  + questionId.getQuestion_id());
 				tanswer.setQuestion(questionId);
-				 arepository.save(tanswer);
+				 tarepository.save(tanswer);
 				return "posted textAnswer: " + tanswer.getAnswer();
 			}
 			
 		}
 		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<TextAnswer> getAnswerListBySurvey(@PathVariable("id")Long id){	
+		public @ResponseBody List getAnswerListBySurvey(@PathVariable("id")Long id){	
 		
 			// create list where put all answers from option and text answer tables
-			List<TextAnswer> allAnswers = new ArrayList<>();
+			List allAnswers = new ArrayList<>();
 			
 			// get all text answers
-			ArrayList tAnswer = new ArrayList<>();
-			tAnswer = arepository.getTextAnswerListBySurvey(id);
+			List tAnswer = new ArrayList<>();
+			tAnswer = (List) tarepository.getTextAnswerListBySurvey(id);
 			
 			// get all choice answers
-			ArrayList cAnswer = new ArrayList<>();
+			List cAnswer = new ArrayList<>();
 			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
 			
 			//add choice and text answer to same list
 			 allAnswers.addAll(tAnswer);
 			 allAnswers.addAll(cAnswer);
 			
-			return (List<TextAnswer>) allAnswers;
+			return (List) allAnswers;
 				}
-
+		
+		//TESTIÄ
+		@RequestMapping(value="/answers/bysurveytest/{id}", method=RequestMethod.GET)
+		public @ResponseBody List getAnswerListBySurveytest(@PathVariable("id")Long id){	
+		
+			// create list where put all answers from option and text answer tables
+			List allAnswers = new ArrayList<>();
+			
+			// get all text answers
+			List tAnswer = new ArrayList<>();
+			tAnswer = (List) tarepository.getTextAnswerListBySurvey(id);
+			
+//			// get all choice answers
+//			List cAnswer = new ArrayList<>();
+//			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
+//			
+//			//add choice and text answer to same list
+//			 allAnswers.addAll(tAnswer);
+//			 allAnswers.addAll(cAnswer);
+//			
+			return (List) tAnswer;
+				}
 		}
 
 
