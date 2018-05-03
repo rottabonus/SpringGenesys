@@ -8,10 +8,10 @@
 	<h1>Kyselyn muokkaus</h1>
 
 	<div>
-		<form th:object="${team}" th:action="@{../saveteam}" action="#" method="post">
-		<input type="hidden" id="team_id" th:field="*{team_id}" />
-			<label for="team_name">Kyselyn nimi</label>
-			<input type="text" id="team_name" th:field="*{team_name}" />
+		<form th:object="${survey}" th:action="@{../saveteam}" action="#" method="post">
+		<input type="hidden" id="survey_id" th:field="*{survey_id}" />
+			<label for="survey">Kyselyn nimi</label>
+			<input type="text" id="survey" th:field="*{survey}" />
     		
 			<input type="submit" value="Save" class="btn btn-success"></input>
 			

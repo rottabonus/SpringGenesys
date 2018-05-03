@@ -1,15 +1,13 @@
 package fi.haagahelia.swd.ohjelmistoprojekti.domain;
 
+import java.util.List;
 
-
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,59 +16,61 @@ public class QuestionType {
 	
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
-private Long questionId;
+private Long question_type_id;
 
-private String questionType;
+private String question_type;
 
-
-@ManyToOne
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "question_type")
 @JsonIgnore
-@JoinColumn(name="question")
-private Question question;
+public List<Question>  question_list;
 
-
-public QuestionType(Long questionId, String questionType, Question question) {
+public QuestionType(String question_type, List<Question> question_list) {
 	super();
-	this.questionId = questionId;
-	this.questionType = questionType;
-	this.question = question;
+	this.question_type = question_type;
+	this.question_list = question_list;
 }
 
 
-public Long getQuestionId() {
-	return questionId;
+
+public Long getQuestion_type_id() {
+	return question_type_id;
 }
 
 
-public void setQuestionId(Long questionId) {
-	this.questionId = questionId;
+
+public void setQuestion_type_id(Long question_type_id) {
+	this.question_type_id = question_type_id;
 }
 
 
-public String getQuestionType() {
-	return questionType;
+
+public String getQuestion_type() {
+	return question_type;
 }
 
 
-public void setQuestionType(String questionType) {
-	this.questionType = questionType;
+
+public void setQuestion_type(String question_type) {
+	this.question_type = question_type;
 }
 
 
-public Question getQuestion() {
-	return question;
+
+public List<Question> getQuestion_list() {
+	return question_list;
 }
 
 
-public void setQuestion(Question question) {
-	this.question = question;
+
+public void setQuestion_list(List<Question> question_list) {
+	this.question_list = question_list;
 }
 
 
-@Override
-public String toString() {
-	return "QuestionType [questionId=" + questionId + ", questionType=" + questionType + ", question=" + question + "]";
-}
+
+public QuestionType() {}
+
+
 
 
 

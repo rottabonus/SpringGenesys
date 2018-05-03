@@ -19,4 +19,5 @@ public interface ChoiceAnswerRepository extends CrudRepository<ChoiceAnswer, Lon
 			+ "JOIN survey AS su ON qu.survey_id=su.survey_id "
 			+ "WHERE su.survey_id= :id")
 	ArrayList getChoiceAnswerListBySurvey(@Param("id") Long id);
+
 }

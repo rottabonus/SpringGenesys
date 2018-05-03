@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.Answer;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionType;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.RequestWrapper;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswer;
 
 @CrossOrigin
 @Controller
@@ -30,8 +34,10 @@ public class RestController {
 	private AnswerRepository arepository;
 	
 	@Autowired
-	private ChoiceAnswerRepository crepository;
+	private ChoiceAnswerRepository carepository;
 	
+
+
 	// REST get all questions
 		@RequestMapping(value="/questions", method=RequestMethod.GET)
 		public @ResponseBody List<Question> questionListRest() {	
@@ -45,80 +51,64 @@ public class RestController {
 		}
 
 		//REST questions by survey
-		@CrossOrigin
 		@RequestMapping(value="/questions/survey/{id}", method=RequestMethod.GET)
 		public @ResponseBody List<Question> findSurveyQuestionRest(@PathVariable("id") Survey survey){
 			return (List<Question>) survey.getQuestion_list();
 		}
 		
-		
-		// POST answer by questionId
-		@RequestMapping(value="/answers/{id}", method=RequestMethod.POST)
-		public @ResponseBody Answer createAnswer(@PathVariable("id") Question questionId, @RequestBody Answer answer){
-			answer.setQuestion(questionId);
-			 arepository.save(answer);
-			return answer;
-		}
-		
-		//GET all answers
-		@RequestMapping(value="/answers", method=RequestMethod.GET)
-		public @ResponseBody List<Answer> answerListRest() {	
-	        return (List<Answer>) arepository.findAll();
-		}
-		
-		//POST answers by Survey
-		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.POST)
-		public @ResponseBody List<Answer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody List<Answer> answerList){
-
-			List<Question> questionList = findSurveyQuestionRest(survey);
-			Long questionId = questionList.get(0).getQuestion_id();
+										
+		//POST any answer by questionId
+		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
+		public @ResponseBody String createChoiceAnswer(@PathVariable("id") Question questionId, @RequestBody RequestWrapper requestWrapper){
 			
-				System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
-						" and questionLists first question is: " + questionList.get(0).getQuestion());
+			//checkQuestionType
+			QuestionType questionType = questionId.getQuestion_type();
+			Long type = questionType.getQuestion_type_id();
+			System.out.println(type);
+			System.out.println(requestWrapper.getAnswer_option() + "  , " + requestWrapper.getText_answer());
+			if(type == 1){
 				
-			//Loop through answers and assign questions 
-			int c = 0;
-				for(Long i = questionId; i < answerList.size() + questionId; i++) {
-					Answer answer = answerList.get(c);
-						answer.setQuestion(qrepository.findOne(i));
-							c++;
-								System.out.println("Question id: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
-										"\nAnswer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
-							}
-			//Saves answerList answers to database
-			arepository.save(answerList);
-				System.out.println("answerList.size() is : " + answerList.size() +
-						" and answerLists first answer is : " + answerList.get(0).getAnswer());
-								return (List<Answer>) answerList;
-					}
-		/*//REST questions by survey
-				@CrossOrigin
-				@RequestMapping(value="/questions/survey/{id}", method=RequestMethod.GET)
-				public @ResponseBody List<Question> findSurveyQuestionRest(@PathVariable("id") Survey survey){
-					return (List<Question>) survey.getQuestion_list();
-				}*/
-		
-		//GET answers by Survey THIS IS NOT FINISHED!!!!!
-		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<Answer> getAnswerListBySurvey(@PathVariable("id")Long id){	
-		
-			//create list where put all answers from option and text answer tables
-			List<Answer> allAnswers = new ArrayList<>();
+				//Create new ChoiceAnswer and set Option
+				ChoiceAnswer answer = new ChoiceAnswer();
+				AnswerOption option = requestWrapper.getAnswer_option();
+				answer.setAnswer_option(option);
+									
+				//save choiceAnswer
+				carepository.save(answer);
+				return "posted choiceAnswer: " + answer.getChoice_answer_id();
+			}
 			
-			//get all text answers
+			else {
+				TextAnswer tanswer = requestWrapper.getText_answer();
+				System.out.println("inside textanswer loop " + tanswer.getAnswer()+
+				"\nquestionId: "  + questionId.getQuestion_id());
+				tanswer.setQuestion(questionId);
+				 arepository.save(tanswer);
+				return "posted textAnswer: " + tanswer.getAnswer();
+			}
+			
+		}
+		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
+		public @ResponseBody List<TextAnswer> getAnswerListBySurvey(@PathVariable("id")Long id){	
+		
+			// create list where put all answers from option and text answer tables
+			List<TextAnswer> allAnswers = new ArrayList<>();
+			
+			// get all text answers
 			ArrayList tAnswer = new ArrayList<>();
 			tAnswer = arepository.getTextAnswerListBySurvey(id);
 			
-			//get all choice answers
+			// get all choice answers
 			ArrayList cAnswer = new ArrayList<>();
-			cAnswer = crepository.getChoiceAnswerListBySurvey(id);
+			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
 			
 			//add choice and text answer to same list
 			 allAnswers.addAll(tAnswer);
 			 allAnswers.addAll(cAnswer);
 			
-			return (List<Answer>) allAnswers;
+			return (List<TextAnswer>) allAnswers;
 				}
+
 		}
 
 
