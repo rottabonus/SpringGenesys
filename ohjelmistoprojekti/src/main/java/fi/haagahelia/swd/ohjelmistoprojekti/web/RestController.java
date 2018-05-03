@@ -18,6 +18,8 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionType;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.RequestWrapper;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswer;
 
@@ -61,63 +63,83 @@ public class RestController {
 			return (List<AnswerOption>) questionId.getOption_list();
 		}
 								
-		// POST answer by questionId
-		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
-		public @ResponseBody TextAnswer createAnswer(@PathVariable("id") Question questionId, @RequestBody TextAnswer answer){
-			answer.setQuestion(questionId);
-			 arepository.save(answer);
-			return answer;
-		}
 		
-		//POST choice_answer by questionId
-		@RequestMapping(value="/chanswers/question/{id}", method=RequestMethod.POST)
-		public @ResponseBody AnswerOption createChoiceAnswer(@PathVariable("id") Question questionId, @RequestBody AnswerOption option){
+		//POST any answer by questionId
+		@RequestMapping(value="/answers/question/{id}", method=RequestMethod.POST)
+		public @ResponseBody String createChoiceAnswer(@PathVariable("id") Question questionId, @RequestBody RequestWrapper requestWrapper){
 			
-			//Create new ChoiceAnswer and set Option
-			ChoiceAnswer answer = new ChoiceAnswer();
-			answer.setAnswer_option(option);
+			//checkQuestionType
+			QuestionType questionType = questionId.getQuestion_type();
+			Long type = questionType.getQuestion_type_id();
+			System.out.println(type);
+			System.out.println(requestWrapper.getAnswer_option() + "  , " + requestWrapper.getText_answer());
+			if(type == 1){
+				
+				//Create new ChoiceAnswer and set Option
+				ChoiceAnswer answer = new ChoiceAnswer();
+				AnswerOption option = requestWrapper.getAnswer_option();
+				answer.setAnswer_option(option);
+									
+				//save choiceAnswer
+				carepository.save(answer);
+				return "posted choiceAnswer: " + answer.getChoice_answer_id();
+			}
 			
-			//set AnswerOption for responseBody (not really necessary)
-			Long answerOption = option.getAnswer_option_id();
-			option.setAnswer_option(aorepository.findOne(answerOption).getAnswer_option());
+			else {
+				TextAnswer tanswer = requestWrapper.getText_answer();
+				System.out.println("inside textanswer loop " + tanswer.getAnswer()+
+				"\nquestionId: "  + questionId.getQuestion_id());
+				tanswer.setQuestion(questionId);
+				 arepository.save(tanswer);
+				return "posted textAnswer: " + tanswer.getAnswer();
+			}
 			
-			//set Question for responseBody
-			option.setQuestion(questionId);
-			
-			//save choiceAnswer
-			carepository.save(answer);
-			return option;
 		}
 		
 		//GET all answers
-		@RequestMapping(value="/answers", method=RequestMethod.GET)
-		public @ResponseBody List<TextAnswer> answerListRest() {	
-	        return (List<TextAnswer>) arepository.findAll();
-		}
+//		@RequestMapping(value="/answers", method=RequestMethod.GET)
+//		public @ResponseBody List<TextAnswer> answerListRest() {	
+//	        return (List<TextAnswer>) arepository.findAll();
+//		}
 		
 		//POST answers by Survey
 		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.POST)
-		public @ResponseBody List<TextAnswer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody List<TextAnswer> answerList){
+		public @ResponseBody List<TextAnswer> createAnswerListBySurvey(@PathVariable("id") Survey survey, @RequestBody RequestWrapper requestWrapper){
 
 			List<Question> questionList = findSurveyQuestionRest(survey);
 			Long questionId = questionList.get(0).getQuestion_id();
 			
+			List<TextAnswer> answerList = requestWrapper.getTanswerList();
+			List<AnswerOption> optionList = requestWrapper.getOptionList();
+			
 				System.out.println("questionLists first question_id is: "+ questionId + " and questionlist.size() is: " + questionList.size() + 
-						" and questionLists first question is: " + questionList.get(0).getQuestion());
+						" and questionLists first question is: " + questionList.get(0).getQuestion() +
+						"\n and answerList size is: " + answerList.size() + "\nand answerList first answer is " + answerList.get(0).getAnswer() +
+						"\n and optionList size is " +optionList.size() + "\nand optionList first option is" + optionList.get(0).getAnswer_option());
 				
 			//Loop through answers and assign questions 
-			int c = 0;
-				for(Long i = questionId; i < answerList.size() + questionId; i++) {
-					TextAnswer answer = answerList.get(c);
-						answer.setQuestion(qrepository.findOne(i));
-							c++;
-								System.out.println("Question id: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
-										"\nAnswer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
-							}
-			//Saves answerList answers to database
-			arepository.save(answerList);
-				System.out.println("answerList.size() is : " + answerList.size() +
-						" and answerLists first answer is : " + answerList.get(0).getAnswer());
+//			int c = 0;
+//				for(Long i = questionId; i < answerList.size() + questionId; i++) {
+//					
+//					//checkQuestionType
+//					Question question = qrepository.findOne(questionId);
+//					question.getQuestion_type();
+//					QuestionType questionType = new QuestionType();
+//					Long type = questionType.getQuestion_type_id();
+//					if(type == 1){
+//						System.out.println(type);
+//					}
+//				}
+//					TextAnswer answer = answerList.get(c);
+//						answer.setQuestion(qrepository.findOne(i));
+//							c++;
+//								System.out.println("Question id: " + i + " and question: " + qrepository.findOne(i).getQuestion() + 
+//										"\nAnswer:  " + answer.getAnswer() + " and answerCounter c: " + c);	
+//							}
+//			//Saves answerList answers to database
+//			arepository.save(answerList);
+//				System.out.println("answerList.size() is : " + answerList.size() +
+//						" and answerLists first answer is : " + answerList.get(0).getAnswer());
 								return (List<TextAnswer>) answerList;
 					}
 		
