@@ -1,7 +1,10 @@
 package fi.haagahelia.swd.ohjelmistoprojekti.web;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+import org.assertj.core.internal.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -98,10 +101,22 @@ public class RestController {
 		}
 		
 		//GET all answers
-//		@RequestMapping(value="/answers", method=RequestMethod.GET)
-//		public @ResponseBody List<TextAnswer> answerListRest() {	
-//	        return (List<TextAnswer>) arepository.findAll();
-//		}
+		@RequestMapping(value="/answers", method=RequestMethod.GET)
+		public @ResponseBody List<Object> answerListRest() {
+			
+			
+			Iterable<TextAnswer> lol = arepository.findAll();
+			Iterable<ChoiceAnswer> lul = carepository.findAll();
+			
+			List<Object> mergedList = new ArrayList<>();
+			
+			lol.forEach(mergedList::add);
+			lul.forEach(mergedList::add);
+			
+			
+			
+	        return mergedList;
+		}
 		
 
 		
