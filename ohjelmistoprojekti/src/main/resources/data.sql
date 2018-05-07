@@ -1,4 +1,4 @@
-INSERT INTO survey (survey)
+INSERT INTO survey (survey_name)
 VALUES
 ('Les Pasila'),
 ('Kari Grandit');
@@ -31,5 +31,28 @@ VALUES
 (1, 'Käyttäisitkö juoma-automaatteja jos niistä saisi muutakin kuin limsaa ja energiajuomia?', 2),
 (1, 'Miksi käytät kahviota?', 2),
 (1, 'Toivoisitko laajempaa valikoimaa kahvioon?', 2),
+(2, 'Mitä haluaisit lisätä kahvilan valikoimaan?', 2),
 (1, 'Onko kahviossa asioiminen nopeaa?', 2);
 
+-- Kari Grandit
+
+INSERT INTO answer_option (question_id, answer_option)
+VALUES
+(13, 'Limukoneista?'),
+(13, 'Kahviosta?'),
+(13, 'Käytän molempia'),
+(13, 'En osta'),
+(14, 'Saan kaiken tarvitsemani koneesta'),
+(14, 'Ei tarvitse mennä kahvioon asti'),
+(15, 'Koneita on riittävästsi ja ne on sijoitettu hyvin'),
+(15, 'Ei, koneita voisi olla enemmän ja niiden sijoittamista voisi suunnitella uudelleen'),
+(15, 'Koneita on riittävästi, mutta ne voisi sijoittaa hyödyllisemmin'),
+(15, 'Koneita ei ole riittävästi, mutta tämän hetkiset sijainnit ocat käytännölliset'),
+(16, 'Kyllä'),
+(16, 'En'),
+(17, 'Parempi valikoima'),
+(17, 'Saan asiakaspalvelua'),
+(18, 'Kyllä'),
+(18, 'En'),
+(20, 'Kyllä'),
+(20, 'Ei');
