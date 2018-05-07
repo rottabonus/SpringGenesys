@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOptionRepository;
@@ -31,7 +32,6 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswerRepository;
 @Controller
 public class RestController {
 	
-	private static final String String = null;
 
 	@Autowired
 	private QuestionRepository qrepository;
@@ -45,9 +45,6 @@ public class RestController {
 	@Autowired
 	private AnswerOptionRepository aorepository;
 	
-	@Autowired
-	private SurveyRepository srepository;
-
 
 	// REST get all questions
 		@RequestMapping(value="/questions", method=RequestMethod.GET)
@@ -106,15 +103,14 @@ public class RestController {
 				}
 				return error;
 
+				
 			}
 			
 		}
 		
-
 		//GET all answers
 		@RequestMapping(value="/answers", method=RequestMethod.GET)
 		public @ResponseBody List<Object> answerListRest() {
-			
 			
 			Iterable<TextAnswer> textAnswers = tarepository.findAll();
 			Iterable<AnswerOption> answerOptions = aorepository.findAll();
@@ -123,68 +119,50 @@ public class RestController {
 			
 			textAnswers.forEach(mergedList::add);
 			answerOptions.forEach(mergedList::add);
-			
-			
-			
+						
 	        return mergedList;
 		}
 		
 
+			
 		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.GET)
-		public @ResponseBody String getAnswerListBySurvey(@PathVariable("id")Long id){	
-			//using Gson-library to parse javalist to JSON
-			Gson gsonBuilder = new Gson();
+		public @ResponseBody List<Object> getAnswerListBySurveyTesti(@PathVariable("id")Long id){	
 			
 			// create list where put all answers from option and text answer tables
-			List allAnswers = new ArrayList<>();
+			List<Object> allAnswers = new ArrayList<>();
 			
 			// get all text answers
-			List tAnswer = new ArrayList<>();
-			tAnswer = (List) tarepository.getTextAnswerListBySurvey(id);
+			Iterable<TextAnswer> tAnswer = new ArrayList<>();
+			
+			try {
+				tAnswer = tarepository.getTextAnswerListBySurveyTest(id);
+				tAnswer.forEach(allAnswers::add);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			// get all choice answers
-			List cAnswer = new ArrayList<>();
-			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
+			Iterable<ChoiceAnswer> cAnswer = new ArrayList<>();
+			
+			try {
+				cAnswer = carepository.getChoiceAnswerListBySurveyTest(id);
+				cAnswer.forEach(allAnswers::add);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			//add choice and text answer to same list
-			 allAnswers.addAll(tAnswer);
-			 allAnswers.addAll(cAnswer);
-			 
-			 //Put allAnswers-list into JSON
-			 String jsonFromJavaArrayList = gsonBuilder.toJson(allAnswers);
-			 
-			return jsonFromJavaArrayList;
-				}
-
-		
-		//TESTIÄ https://springframework.guru/google-gson-for-json-processing/
-		//This method works and goes into JSON
-		@RequestMapping(value="/surveystest/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<Survey> getsurveystest(@PathVariable("id")Long id){
-		
-			return srepository.getSurveys(id);
-		}
-		
-		@RequestMapping(value="/answers/bysurveytest/{id}", method=RequestMethod.GET)
-		public @ResponseBody String getAnswerListBySurveytest(@PathVariable("id")Long id){	
-			Gson gsonBuilder = new Gson();
-			String jsonFromJavaArrayList = gsonBuilder.toJson(tarepository.getTextAnswerListBySurvey(id));
-//			// create list where put all answers from option and text answer tables
-//			List<TextAnswerRepository> allAnswers = new ArrayList<>();
-//			
-//			// get all text answers
-//			List tAnswer = new ArrayList<>();
-//			tAnswer = (ArrayList) tarepository.getTextAnswerListBySurvey(id);
 			
-//			// get all choice answers
-//			List cAnswer = new ArrayList<>();
-//			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
-//			
-//			//add choice and text answer to same list//			 allAnswers.addAll(tAnswer);
-//			 allAnswers.addAll(cAnswer);
+			
 
-			return jsonFromJavaArrayList;
+			 return allAnswers;
 				}
+		
+	
+		
+		
 		}
 
 
