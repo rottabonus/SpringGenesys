@@ -13,14 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
-<<<<<<< HEAD
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOptionRepository;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
-=======
->>>>>>> holma1
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
@@ -46,15 +41,12 @@ public class RestController {
 	
 	@Autowired
 	private ChoiceAnswerRepository carepository;
-<<<<<<< HEAD
 	
 	@Autowired
 	private AnswerOptionRepository aorepository;
 	
-=======
 	@Autowired
 	private SurveyRepository srepository;
->>>>>>> holma1
 
 
 	// REST get all questions
@@ -103,36 +95,28 @@ public class RestController {
 			}
 			
 			else {
-<<<<<<< HEAD
 				
 				if(requestWrapper.getText_answer() != null){
 					TextAnswer tanswer = requestWrapper.getText_answer();
 					System.out.println("inside textanswer loop " + tanswer.getAnswer()+
 					"\nquestionId: "  + questionId.getQuestion_id());
 					tanswer.setQuestion(questionId);
-					 arepository.save(tanswer);
+					 tarepository.save(tanswer);
 					return "posted textAnswer: " + tanswer.getAnswer();
 				}
 				return error;
-=======
-				TextAnswer tanswer = requestWrapper.getText_answer();
-				System.out.println("inside textanswer loop " + tanswer.getAnswer()+
-				"\nquestionId: "  + questionId.getQuestion_id());
-				tanswer.setQuestion(questionId);
-				 tarepository.save(tanswer);
-				return "posted textAnswer: " + tanswer.getAnswer();
->>>>>>> holma1
+
 			}
 			
 		}
 		
-<<<<<<< HEAD
+
 		//GET all answers
 		@RequestMapping(value="/answers", method=RequestMethod.GET)
 		public @ResponseBody List<Object> answerListRest() {
 			
 			
-			Iterable<TextAnswer> textAnswers = arepository.findAll();
+			Iterable<TextAnswer> textAnswers = tarepository.findAll();
 			Iterable<AnswerOption> answerOptions = aorepository.findAll();
 			
 			List<Object> mergedList = new ArrayList<>();
@@ -146,8 +130,7 @@ public class RestController {
 		}
 		
 
-=======
-		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
+		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.GET)
 		public @ResponseBody String getAnswerListBySurvey(@PathVariable("id")Long id){	
 			//using Gson-library to parse javalist to JSON
 			Gson gsonBuilder = new Gson();
@@ -172,7 +155,7 @@ public class RestController {
 			 
 			return jsonFromJavaArrayList;
 				}
->>>>>>> holma1
+
 		
 		//TESTIÄ https://springframework.guru/google-gson-for-json-processing/
 		//This method works and goes into JSON
