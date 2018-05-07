@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<a th:href="@{/editsurvey/{id}(id=${survey.survey_id})}">edit name</a>
+	<a th:href="@{/editsurvey/{id}(id=${surveys.survey_id})}">edit name</a>
 	<table>
 		<tr>
 			<th>Kysely</th>
@@ -15,12 +15,10 @@
 		
 		<tr th:each="question : ${questions}">
 			<td th:text="${question.question}"></td>
-			<td th:text="${question.survey.survey}"></td>
+			<td th:text="${question.survey.surveyName}"></td>
+			<td th:text="${question.question_type.question_type}"></td>
 		</tr>
-		
-		<tr th:each="survey : ${surveys}">
-			<td th:text="${survey.survey}"></td>
-		</tr>
+
 	</table>
 
 </body>

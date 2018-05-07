@@ -17,8 +17,7 @@ public class Survey {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long survey_id;
-	
-	private String survey;
+	private String surveyName;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
 	@JsonIgnore
@@ -32,12 +31,13 @@ public class Survey {
 		this.survey_id = survey_id;
 	}
 
-	public String getSurvey() {
-		return survey;
+	
+	public String getSurveyName() {
+		return surveyName;
 	}
 
-	public void setSurvey(String survey) {
-		this.survey = survey;
+	public void setSurveyName(String surveyName) {
+		this.surveyName = surveyName;
 	}
 
 	public List<Question> getQuestion_list() {
@@ -48,9 +48,9 @@ public class Survey {
 		this.question_list = question_list;
 	}
 
-	public Survey(String survey, List<Question> question_list) {
+	public Survey(String surveyName,List<Question> question_list) {
 		super();
-		this.survey = survey;
+		this.surveyName = surveyName;
 		this.question_list = question_list;
 	}
 

@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
+import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionTypeRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Survey;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.SurveyRepository;
 
@@ -20,6 +22,9 @@ public class QController {
 	@Autowired
 	private SurveyRepository srepository;
 	
+	@Autowired
+	private QuestionTypeRepository qtrepository;
+	
 
 	@RequestMapping(value="/surveylist", method=RequestMethod.GET)
 	public String surveyList(Model model){
@@ -28,14 +33,14 @@ public class QController {
 	}
 	
 	@RequestMapping(value="/addsurvey")
-	public String addSurvey(Model model){
+	public String addSurvey(Model model){	
 		model.addAttribute("survey", new Survey());
 		return "newsurvey";
 	}
 
 
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(Survey survey){
+	@RequestMapping(value="/savesurvey", method=RequestMethod.POST)
+	public String savesurvey(Survey survey){
 		srepository.save(survey);
 		return "redirect:/surveylist";
 	}
@@ -54,6 +59,18 @@ public class QController {
 		model.addAttribute("questions", qrepository.findAll());
 		return "questionlist";
 	}
-
 	
+	@RequestMapping(value="/newquestion")
+	public String newQuestion(Model model){
+		model.addAttribute("question", new Question());
+		model.addAttribute("surveys", srepository.findAll());
+		model.addAttribute("question_types", qtrepository.findAll());		
+		return "newquestion";
+	}
+
+	@RequestMapping(value="/savequestion", method=RequestMethod.POST)
+	public String savequestion(Question question){
+		qrepository.save(question);
+		return "redirect:/surveylist";
+	}
 }

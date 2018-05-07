@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Bookstore</title>
+<title>Kysely</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Kyselyn muokkaus</h1>
 
 	<div>
-		<form th:object="${survey}" th:action="@{../saveteam}" action="#" method="post">
+		<form th:object="${survey}" th:action="@{../savesurvey}" action="#" method="post">
 		<input type="hidden" id="survey_id" th:field="*{survey_id}" />
 			<label for="survey">Kyselyn nimi</label>
-			<input type="text" id="survey" th:field="*{survey}" />
+			<input type="text" id="survey" th:field="*{surveyName}" />
     		
 			<input type="submit" value="Save" class="btn btn-success"></input>
 			

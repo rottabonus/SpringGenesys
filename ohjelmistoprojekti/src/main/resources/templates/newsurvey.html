@@ -8,13 +8,15 @@
 	<h1>Uusi kysely</h1>
 	
 	<div>
-		<form th:object="${survey}" th:action="@{save}" action="#" method="post">
-			<label for="name">Kyselyn nimi</label>
-			<input type="text" id="name" th:field="*{survey_name}" />
+		<form th:object="${survey}" th:action="@{savesurvey}" action="#" method="post">
+			<label for="survey">Kyselyn nimi</label>
+			
+			<input type="text" id="survey" th:field="*{surveyName}" />
 
-			<input type="submit" value="Save" class="btn btn-success"></input>
+			<input type="submit" value="Save"></input>
 						
 		</form>
+		
 	</div>
 
 </body>

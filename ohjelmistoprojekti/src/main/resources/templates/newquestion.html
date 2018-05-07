@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kysely</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Uusi kysymys</h1>
+	
+	<div>
+		<form th:object="${question}" th:action="@{savequestion}" action="#" method="post">
+			<label for="question">Question</label>
+			<input type="text" id="question" th:field="*{question}" />
+			
+			<label for="surveylist">Query</label>
+			 	<select style="width: 100px" id="surveylist" th:field="*{survey}" class="form-control">
+       			<option th:each="survey: ${surveys}" th:value="${survey.survey_id}" th:text="${survey.surveyName}"></option>
+    		</select>
+    		
+    		<label for="questiontypelist">Questiontype</label>
+			 	<select style="width: 100px" id="questiontypelist" th:field="*{question_type}" class="form-control">
+       			<option th:each="question_type: ${question_types}" th:value="${question_type.question_type_id}" th:text="${question_type.question_type}"></option>
+    		</select>
+    		
+			<input type="submit" value="Save" class="btn btn-success"></input>
+						
+		</form>
+	</div>
+
+</body>
+</html>
