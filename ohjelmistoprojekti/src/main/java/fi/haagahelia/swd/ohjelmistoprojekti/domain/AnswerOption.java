@@ -28,7 +28,6 @@ public class AnswerOption {
 	private String answer_option;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "answer_option")
-	@JsonIgnore
 	private List<ChoiceAnswer> choice_answer_list;
 	
 	
