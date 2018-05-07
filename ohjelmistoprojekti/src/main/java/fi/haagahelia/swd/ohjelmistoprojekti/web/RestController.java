@@ -32,7 +32,6 @@ import fi.haagahelia.swd.ohjelmistoprojekti.domain.TextAnswerRepository;
 @Controller
 public class RestController {
 	
-	private static final String String = null;
 
 	@Autowired
 	private QuestionRepository qrepository;
@@ -46,9 +45,6 @@ public class RestController {
 	@Autowired
 	private AnswerOptionRepository aorepository;
 	
-	@Autowired
-	private SurveyRepository srepository;
-
 
 	// REST get all questions
 		@RequestMapping(value="/questions", method=RequestMethod.GET)
@@ -137,15 +133,29 @@ public class RestController {
 			
 			// get all text answers
 			Iterable<TextAnswer> tAnswer = new ArrayList<>();
-			tAnswer = tarepository.getTextAnswerListBySurveyTest(id);
+			
+			try {
+				tAnswer = tarepository.getTextAnswerListBySurveyTest(id);
+				tAnswer.forEach(allAnswers::add);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			// get all choice answers
 			Iterable<ChoiceAnswer> cAnswer = new ArrayList<>();
-			cAnswer = carepository.getChoiceAnswerListBySurveyTest(id);
+			
+			try {
+				cAnswer = carepository.getChoiceAnswerListBySurveyTest(id);
+				cAnswer.forEach(allAnswers::add);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			//add choice and text answer to same list
-			tAnswer.forEach(allAnswers::add);
-			cAnswer.forEach(allAnswers::add);
+			
+			
 
 			 return allAnswers;
 				}
