@@ -16,11 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOption;
-<<<<<<< HEAD
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerOptionRepository;
-import fi.haagahelia.swd.ohjelmistoprojekti.domain.AnswerRepository;
-=======
->>>>>>> holma1
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswer;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.ChoiceAnswerRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
@@ -46,15 +42,12 @@ public class RestController {
 	
 	@Autowired
 	private ChoiceAnswerRepository carepository;
-<<<<<<< HEAD
 	
 	@Autowired
 	private AnswerOptionRepository aorepository;
 	
-=======
 	@Autowired
 	private SurveyRepository srepository;
->>>>>>> holma1
 
 
 	// REST get all questions
@@ -103,105 +96,63 @@ public class RestController {
 			}
 			
 			else {
-<<<<<<< HEAD
 				
 				if(requestWrapper.getText_answer() != null){
 					TextAnswer tanswer = requestWrapper.getText_answer();
 					System.out.println("inside textanswer loop " + tanswer.getAnswer()+
 					"\nquestionId: "  + questionId.getQuestion_id());
 					tanswer.setQuestion(questionId);
-					 arepository.save(tanswer);
+					 tarepository.save(tanswer);
 					return "posted textAnswer: " + tanswer.getAnswer();
 				}
 				return error;
-=======
-				TextAnswer tanswer = requestWrapper.getText_answer();
-				System.out.println("inside textanswer loop " + tanswer.getAnswer()+
-				"\nquestionId: "  + questionId.getQuestion_id());
-				tanswer.setQuestion(questionId);
-				 tarepository.save(tanswer);
-				return "posted textAnswer: " + tanswer.getAnswer();
->>>>>>> holma1
+
+				
 			}
 			
 		}
 		
-<<<<<<< HEAD
 		//GET all answers
 		@RequestMapping(value="/answers", method=RequestMethod.GET)
 		public @ResponseBody List<Object> answerListRest() {
 			
-			
-			Iterable<TextAnswer> textAnswers = arepository.findAll();
+			Iterable<TextAnswer> textAnswers = tarepository.findAll();
 			Iterable<AnswerOption> answerOptions = aorepository.findAll();
 			
 			List<Object> mergedList = new ArrayList<>();
 			
 			textAnswers.forEach(mergedList::add);
 			answerOptions.forEach(mergedList::add);
-			
-			
-			
+						
 	        return mergedList;
 		}
 		
 
-=======
-		@RequestMapping(value="/answers/bysurvey/{id}", method=RequestMethod.GET)
-		public @ResponseBody String getAnswerListBySurvey(@PathVariable("id")Long id){	
-			//using Gson-library to parse javalist to JSON
-			Gson gsonBuilder = new Gson();
+			
+		@RequestMapping(value="/answers/survey/{id}", method=RequestMethod.GET)
+		public @ResponseBody List<Object> getAnswerListBySurveyTesti(@PathVariable("id")Long id){	
 			
 			// create list where put all answers from option and text answer tables
-			List allAnswers = new ArrayList<>();
+			List<Object> allAnswers = new ArrayList<>();
 			
 			// get all text answers
-			List tAnswer = new ArrayList<>();
-			tAnswer = (List) tarepository.getTextAnswerListBySurvey(id);
+			Iterable<TextAnswer> tAnswer = new ArrayList<>();
+			tAnswer = tarepository.getTextAnswerListBySurveyTest(id);
 			
 			// get all choice answers
-			List cAnswer = new ArrayList<>();
-			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
+			Iterable<ChoiceAnswer> cAnswer = new ArrayList<>();
+			cAnswer = carepository.getChoiceAnswerListBySurveyTest(id);
 			
 			//add choice and text answer to same list
-			 allAnswers.addAll(tAnswer);
-			 allAnswers.addAll(cAnswer);
-			 
-			 //Put allAnswers-list into JSON
-			 String jsonFromJavaArrayList = gsonBuilder.toJson(allAnswers);
-			 
-			return jsonFromJavaArrayList;
-				}
->>>>>>> holma1
-		
-		//TESTIÄ https://springframework.guru/google-gson-for-json-processing/
-		//This method works and goes into JSON
-		@RequestMapping(value="/surveystest/{id}", method=RequestMethod.GET)
-		public @ResponseBody List<Survey> getsurveystest(@PathVariable("id")Long id){
-		
-			return srepository.getSurveys(id);
-		}
-		
-		@RequestMapping(value="/answers/bysurveytest/{id}", method=RequestMethod.GET)
-		public @ResponseBody String getAnswerListBySurveytest(@PathVariable("id")Long id){	
-			Gson gsonBuilder = new Gson();
-			String jsonFromJavaArrayList = gsonBuilder.toJson(tarepository.getTextAnswerListBySurvey(id));
-//			// create list where put all answers from option and text answer tables
-//			List<TextAnswerRepository> allAnswers = new ArrayList<>();
-//			
-//			// get all text answers
-//			List tAnswer = new ArrayList<>();
-//			tAnswer = (ArrayList) tarepository.getTextAnswerListBySurvey(id);
-			
-//			// get all choice answers
-//			List cAnswer = new ArrayList<>();
-//			cAnswer = carepository.getChoiceAnswerListBySurvey(id);
-//			
-//			//add choice and text answer to same list//			 allAnswers.addAll(tAnswer);
-//			 allAnswers.addAll(cAnswer);
+			tAnswer.forEach(allAnswers::add);
+			cAnswer.forEach(allAnswers::add);
 
-			return jsonFromJavaArrayList;
+			 return allAnswers;
 				}
+		
+	
+		
+		
 		}
 
 
