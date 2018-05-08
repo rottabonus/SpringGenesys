@@ -239,29 +239,23 @@ HUOM! API response on tyhjä lista tällä hetkellä, kun vastauksia ei tullut e
 
 ## Vastaukset
 
-[http://167.99.253.212:8080/ohjelmistoprojekti/answers/](http://167.99.253.212:8080/ohjelmistoprojekti/answers/)
+[http://167.99.253.212:8080/ohpro/answers/](http://167.99.253.212:8080/ohpro/answers/)
 
 Method: GET 
 
 API response:
 
-API Response:
 
 ```
 [
-  {
-    "answer_id": 1,
-    "answer": "2 vuotta",
-    }
-  },
-  {
-    "answer_id": 2,
-    "answer": "En"
-    }
-  },
-.
-.
-.
+{
+answer_option_id: 1,
+answer_option: "Mies"
+},
+{
+answer_option_id: 2,
+answer_option: "Nainen"
+},
 ```
-
+HUOM! Vastauksia ei ole vielä tullut!
 
