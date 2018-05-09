@@ -1,25 +1,33 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="icon" href="../img/Logo.ico" type="image/x-icon" />
+<title>SpringGenesys</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Questions</title>
+<link type="text/css" rel="stylesheet" href="css/styles.css" th:href="@{css/styles.css}" />
 </head>
 <body>
 
-	<a th:href="@{/editsurvey/{id}(id=${surveys.survey_id})}">edit name</a>
+	<button><a th:href="@{/editsurvey/{id}(id=${surveys.survey_id})}">Muokkaa kyselyn nimeä</a></button>
+	
+	
+    <h1 th:text="${surveys.surveyName}" ></h1>
+
 	<table>
 		<tr>
-			<th>Kysely</th>
-			<th>Kysymkset</th>
+			<th>Kysymykset:</th>
+			<th>tyyppi:</th>
 		</tr>
 		
 		<tr th:each="question : ${questions}">
-			<td th:text="${question.question}"></td>
-			<td th:text="${question.survey.surveyName}"></td>
+			<td th:text="${question.surveyQuestion}"></td>
 			<td th:text="${question.question_type.question_type}"></td>
+			<td><button><a th:href="@{/editquestion/{id}(id=${question.question_id})}">muokkaa</a></button></td>
 		</tr>
 
 	</table>
+	
+	<a th:href="@{/newquestion/survey/{id}(id=${surveys.survey_id})}">Lisää kysymys</a>
 
 </body>
 </html>

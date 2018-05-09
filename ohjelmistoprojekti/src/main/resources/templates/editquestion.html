@@ -7,23 +7,24 @@
 <link type="text/css" rel="stylesheet" href="css/styles.css" th:href="@{css/styles.css}" />
 </head>
 <body>
-	<h1 th:text="${surveys.surveyName}" ></h1>
-	
+	<h1 th:text="${question.survey.surveyName}" ></h1>
+
 	<div>
-		<form th:object="${question}" th:action="@{/savequestion}" action="#" method="post">
+		<form th:object="${question}" th:action="@{../savequestion}" action="#" method="post">
+
+		<input type="hidden" id="surveyid" th:field="*{survey.survey_id}" />
+				
+		<input type="hidden" id="id" th:field="*{question_id}" />
+			<label for="question">Kysymys</label>
+			<input type="text" id="question" th:field="*{surveyQuestion}" />
 		
-			<input type="text" id="surveyid" th:field="${surveys.survey_id}" />
-		
-			<label for="surveyQuestion">Kysymys:</label>
-			<input type="text" id="surveyQuestion" th:field="*{surveyQuestion}" />
-    		
-    		<label for="questiontypelist">tyyppi:</label>
+			<label for="questiontypelist">Questiontype</label>
 			 	<select style="width: 100px" id="questiontypelist" th:field="*{question_type}" class="form-control">
        			<option th:each="question_type: ${question_types}" th:value="${question_type.question_type_id}" th:text="${question_type.question_type}"></option>
     		</select>
     		
-			<input type="submit" value="Save"></input>
-						
+			<input type="submit" value="Save" class="btn btn-success"></input>
+			
 		</form>
 	</div>
 

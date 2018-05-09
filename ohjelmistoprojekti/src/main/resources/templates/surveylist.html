@@ -1,22 +1,24 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Kysely</title>
+<link rel="icon" href="../img/Logo.ico" type="image/x-icon" />
+<title>SpringGenesys</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/styles.css" th:href="@{css/styles.css}" />
 </head>
 <body>
 
-	<h1>surveys:</h1>
+	<h1>Kyselyt:</h1>
 
 	
 	<table>
 		<tr>
-			<th>Name</th>
+			<th>Nimi</th>
 		</tr>
 
 		<tr th:each="survey : ${surveys}">
 			<td th:text="${survey.surveyName}"></td>
-			<td><a th:href="@{/questionlist/survey/{id}(id=${survey.survey_id})}">edit survey</a></td>
+			<td><a th:href="@{/questionlist/survey/{id}(id=${survey.survey_id})}">Muokkaa</a></td>
 		</tr>
 	</table>
 	

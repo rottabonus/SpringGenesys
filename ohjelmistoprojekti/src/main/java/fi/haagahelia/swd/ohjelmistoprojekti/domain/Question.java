@@ -24,11 +24,11 @@ private Long question_id;
 @JoinColumn(name="question_type_id")
 private QuestionType question_type;
 
-private String question;
+public String surveyQuestion;
 
 @ManyToOne
 @JoinColumn(name="survey_id")
-private Survey survey;
+public Survey survey;
 
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 private List<AnswerOption> option_list;
@@ -61,12 +61,12 @@ public void setQuestion_id(Long question_id) {
 	this.question_id = question_id;
 }
 
-public String getQuestion() {
-	return question;
+public String getSurveyQuestion() {
+	return surveyQuestion;
 }
 
-public void setQuestion(String question) {
-	this.question = question;
+public void setSurveyQuestion(String surveyQuestion) {
+	this.surveyQuestion = surveyQuestion;
 }
 
 
@@ -88,10 +88,10 @@ public void setQuestion_type(QuestionType question_type) {
 	this.question_type = question_type;
 }
 
-public Question(String question, QuestionType question_type, List<TextAnswer> answer_list, Survey survey,
+public Question(String surveyQuestion, QuestionType question_type, List<TextAnswer> answer_list, Survey survey,
 		List<AnswerOption> option_list) {
 	super();
-	this.question = question;
+	this.surveyQuestion = surveyQuestion;
 	this.question_type = question_type;
 	this.answer_list = answer_list;
 	this.survey = survey;

@@ -1,5 +1,6 @@
 package fi.haagahelia.swd.ohjelmistoprojekti.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.Question;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionRepository;
 import fi.haagahelia.swd.ohjelmistoprojekti.domain.QuestionTypeRepository;
@@ -56,14 +58,15 @@ public class QController {
 	@RequestMapping(value="/questionlist/survey/{id}", method=RequestMethod.GET)
 	public String questionlist(@PathVariable("id") Long surveyId, Model model){
 		model.addAttribute("surveys", srepository.findOne(surveyId));
-		model.addAttribute("questions", qrepository.findAll());
+		List<Question> list = qrepository.getQuestionListBySurvey(surveyId);
+		model.addAttribute("questions", list);
 		return "questionlist";
 	}
 	
-	@RequestMapping(value="/newquestion")
-	public String newQuestion(Model model){
+	@RequestMapping(value="/newquestion/survey/{id}")
+	public String newQuestion(@PathVariable("id") Long surveyId, Model model){
 		model.addAttribute("question", new Question());
-		model.addAttribute("surveys", srepository.findAll());
+		model.addAttribute("surveys", srepository.findOne(surveyId));
 		model.addAttribute("question_types", qtrepository.findAll());		
 		return "newquestion";
 	}
@@ -72,5 +75,13 @@ public class QController {
 	public String savequestion(Question question){
 		qrepository.save(question);
 		return "redirect:/surveylist";
+	}
+	
+	@RequestMapping(value="/editquestion/{id}")
+	public String editQuestion(@PathVariable("id") Long questionId, Model model){
+		model.addAttribute("question", qrepository.findOne(questionId));
+		model.addAttribute("surveys", srepository.findAll());
+		model.addAttribute("question_types", qtrepository.findAll());
+		return "editquestion";
 	}
 }

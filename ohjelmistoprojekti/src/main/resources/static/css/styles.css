@@ -1,0 +1,8 @@
+
+body{
+	background-image: url("../img/Logo.jpg");
+    background-size: 501px 300px;
+	background-position: 90% -40%;
+   	background-repeat: no-repeat;
+    padding:15px;
+}
