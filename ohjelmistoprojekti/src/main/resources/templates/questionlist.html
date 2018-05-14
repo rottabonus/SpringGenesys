@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<button><a th:href="@{/editsurvey/{id}(id=${surveys.survey_id})}">Muokkaa kyselyn nimeä</a></button>
+	<a th:href="@{/editsurvey/{id}(id=${surveys.survey_id})}">Muokkaa kyselyn nimeä</a>
 	
 	
     <h1 th:text="${surveys.surveyName}" ></h1>
@@ -20,12 +20,19 @@
 		</tr>
 		
 		<tr th:each="question : ${questions}">
+			<td th:text="${question.question_id}"></td>
 			<td th:text="${question.surveyQuestion}"></td>
 			<td th:text="${question.question_type.question_type}"></td>
-			<td><button><a th:href="@{/editquestion/{id}(id=${question.question_id})}">muokkaa</a></button></td>
+			<td><a th:href="@{/editquestion/{id}(id=${question.question_id})}">muokkaa</a></td>
+		</tr>
+		
+		<tr th:each="answerOption : ${answerOptions}">
+			<td th:text="${answerOption.question.question_id}"></td>
+			<td th:text="${answerOption.answer_option}"></td>
 		</tr>
 
 	</table>
+
 	
 	<a th:href="@{/newquestion/survey/{id}(id=${surveys.survey_id})}">Lisää kysymys</a>
 

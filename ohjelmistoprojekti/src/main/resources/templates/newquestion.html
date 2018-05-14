@@ -12,7 +12,10 @@
 	<div>
 		<form th:object="${question}" th:action="@{/savequestion}" action="#" method="post">
 		
-			<input type="text" id="surveyid" th:field="${surveys.survey_id}" />
+			<label for="surveylist">Kysely:</label>
+			 	<select style="width: 150px" id="surveylist" th:field="*{survey}" class="form-control">
+       			<option th:each="surveys: ${surveys}" th:value="${surveys.survey_id}" th:text="${surveys.surveyName}"></option>
+    		</select>
 		
 			<label for="surveyQuestion">Kysymys:</label>
 			<input type="text" id="surveyQuestion" th:field="*{surveyQuestion}" />
