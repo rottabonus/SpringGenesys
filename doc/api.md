@@ -209,6 +209,7 @@ posted textAnswer: 2 vuotta
 
 
 2. Jos kysymyksessä on radiovastaus
+jossa vastaus on ´answer_option_id´, joka saadaan tietää questionin perusteella. Vastaus generoi itselleen choice_answer id:n automaattisesti.
 
 ```
 Body: {
@@ -225,6 +226,8 @@ posted choiceAnswer: 23
 ## Vastaukset kyselykohtaisesti
 
 [http://167.99.253.212:8080/ohpro/answers/survey/1](http://167.99.253.212:8080/ohpro/answers/survey/1)
+
+Tekstivastauksissa tulee mukana kysymysten tarkat tiedot, radiovastauksissa vain ´choice_answer_id´ sekä ´answer_option_id´. 
 
 Method: GET
 
