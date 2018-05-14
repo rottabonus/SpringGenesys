@@ -231,31 +231,50 @@ Method: GET
 API response: 
 
 ```
-[]
-
-```
-
-HUOM! API response on tyhjä lista tällä hetkellä, kun vastauksia ei tullut eikä testidataa vielä syötetty. Päivitetään tämä!
-
-## Vastaukset
-
-[http://167.99.253.212:8080/ohpro/answers/](http://167.99.253.212:8080/ohpro/answers/)
-
-Method: GET 
-
-API response:
-
-
-```
 [
 {
-answer_option_id: 1,
-answer_option: "Mies"
+"question":{"question_id":5,"question_type":{
+"question_type_id":2,
+"question_type":"text"
+},
+"question":"Miten arvioisit opiskelijajärjestöjen ja opiskelijoiden välisen vuorovaikutuksen? (face-to-face, sposti, puhelinnumerot)",
+"survey":{"survey_id":1,"survey":"Les Pasila"
+},
+"option_list":[]
+},
+"answer":"En osaa sanoa","answer_id":1
 },
 {
-answer_option_id: 2,
-answer_option: "Nainen"
+"question":{"question_id":7,"question_type":{
+"question_type_id":2,"question_type":"text"
 },
+"question":"Mitä kautta yleensä otat yhteyttä Helgaan tai opiskelijajärjestöihin?",
+"survey":{"survey_id":1,"survey":"Les Pasila"
+},
+"option_list":[]
+},
+"answer":"Sähköpostilla","answer_id":2
+},
+{
+"choice_answer_id":2,
+"answer_option":{ "answer_option_id":1,
+"answer_option":"Mies"
+}
+},
+{
+"choice_answer_id":3,
+"answer_option":{"answer_option_id":1,
+"answer_option":"Mies"
+}
+},
+{
+"choice_answer_id":1,
+"answer_option":{ "answer_option_id":2,
+"answer_option":"Nainen"
+}
+}
+]
+
 ```
-HUOM! Vastauksia ei ole vielä tullut!
+
 
